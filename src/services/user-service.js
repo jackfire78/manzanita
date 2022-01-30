@@ -2,12 +2,14 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 const API_URL = 'http://localhost:8080/api/test/';
-
+//service used for accessing data
 class UserService {
+  //does not need a header. Accessible by anyone
   getPublicContent() {
     return axios.get(API_URL + 'all');
   }
-
+  //any requests of authorized resources must contain an HTTP header 
+  //with the help of authHeader() function
   getUserBoard() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
   }

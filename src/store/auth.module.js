@@ -1,4 +1,5 @@
 import AuthService from '../services/auth.service';
+//Vuex module that contains the state, actions, and mutations for login and register functions.
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
