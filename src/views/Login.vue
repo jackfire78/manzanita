@@ -4,7 +4,7 @@
       <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
+        class="profile-img-card" 
       />
       <Form @submit="handleLogin" :validation-schema="schema">
         <div class="form-group">
@@ -95,5 +95,12 @@ export default {
 </script>
 
 <style scoped>
-
+  .profile-img-card {
+    text-align:center;
+  }
+  img {
+    width:400px;
+    height:200px;
+    object-fit: cover;
+  }
 </style>

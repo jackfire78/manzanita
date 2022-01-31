@@ -49,7 +49,7 @@ const routes = [
     name: "user",
     // lazy-loaded
     component: BoardUser,
-  }*/,
+  }*/
 ];
 
 const router = createRouter({
