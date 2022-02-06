@@ -91,9 +91,9 @@ export default {
         .email("Email is invalid!")
         .max(50, "Must be maximum 50 characters!"),
       phoneNumber: yup
-        .number() 
+        .number()
         .required("Phone # is required!")
-        .phoneNumber("Phone # is invalid"),
+        .phoneNumber("Phone $ is invalid"),
       unitNumber: yup
         .number()
         .required("Unit # is required!")
