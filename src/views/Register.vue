@@ -25,12 +25,12 @@
           </div>
           <div class="form-group">
             <label for="phoneNumber">Phone Number</label>
-            <Field name="phoneNumber" type="number" class="form-control" />
+            <Field name="phoneNumber" type="text" class="form-control" />
             <ErrorMessage name="phoneNumber" class="error-feedback" />
           </div>
           <div class="form-group">
             <label for="unitNumber">Unit Number</label>
-            <Field name="unitNumber" type="number" class="form-control" />
+            <Field name="unitNumber" type="text" class="form-control" />
             <ErrorMessage name="unitNumber" class="error-feedback" />
           </div>
           <div class="form-group">
@@ -91,14 +91,15 @@ export default {
         .email("Email is invalid!")
         .max(50, "Must be maximum 50 characters!"),
       phoneNumber: yup
-        .number()
+        .string()
         .required("Phone # is required!")
-        .phoneNumber("Phone $ is invalid"),
+        .min(10, "Must be 10 Numbers!")
+        .max(10, "Must be 10 Numbers!"),
       unitNumber: yup
-        .number()
+        .string()
         .required("Unit # is required!")
         .min(1, "Must be at least 1 number!")
-        .max(99999, "Must be at most 5 numbers!"),
+        .max(5, "Must be at most 5 numbers!"),
       role: yup
         .string()
         .required("Role is required!")
@@ -118,11 +119,11 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     },
   },
-  mounted() {
-    if (this.loggedIn) {
-      this.$router.push("/profile");
-    }
-  },
+  // mounted() {
+  //   if (this.loggedIn) {
+  //     this.$router.push("/profile");
+  //   }
+  // },
   methods: {
     handleRegister(user) {
       this.message = "";

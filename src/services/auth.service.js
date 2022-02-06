@@ -32,8 +32,11 @@ class AuthService {
     //post data given at creating a new account.
     return axios.post(API_URL + 'signup', {
       username: user.username,
+      password: user.password,
       email: user.email,
-      password: user.password
+      phoneNumber: user.phoneNumber,
+      unitNumber: user.unitNumber,
+      role: user.role
     });
   }
 }
