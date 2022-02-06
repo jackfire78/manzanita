@@ -96,11 +96,10 @@ export default {
 
 <style scoped>
   .profile-img-card {
-    text-align:center;
+    align-self:center;
   }
   img {
-    width:400px;
+    width:200px;
     height:200px;
-    object-fit: cover;
   }
 </style>

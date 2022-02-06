@@ -91,15 +91,14 @@ export default {
         .email("Email is invalid!")
         .max(50, "Must be maximum 50 characters!"),
       phoneNumber: yup
-        .number()
+        .number() 
         .required("Phone # is required!")
-        .min(10, "Must be 10 Numbers!")
-        .max(10, "Must be 10 Numbers!"),
+        .phoneNumber("Phone # is invalid"),
       unitNumber: yup
         .number()
         .required("Unit # is required!")
         .min(1, "Must be at least 1 number!")
-        .max(5, "Must be at most 5 numbers!"),
+        .max(99999, "Must be at most 5 numbers!"),
       role: yup
         .string()
         .required("Role is required!")
@@ -153,5 +152,11 @@ export default {
 </script>
 
 <style scoped>
-
+  .profile-img-card {
+    text-align:center;
+  }
+  img {
+    width:200px;
+    height:200px;
+  }
 </style>
