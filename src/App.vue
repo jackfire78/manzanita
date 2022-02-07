@@ -1,4 +1,4 @@
-
+<!-- Site wide css. Contains navigation bar that will be used on every page. Will contain footer in the future. -->
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
@@ -31,7 +31,7 @@
             <font-awesome-icon icon="sign-in-alt" />Login
           </router-link>
         </li>
-        
+
         <li v-if="currentUser" class="nav-item">
           <router-link to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
@@ -55,18 +55,19 @@
 
 <script>
 export default {
+  //return user if one is logged in
   computed: {
-    currentUser() {
+    currentUser() {          //if parameters are met, then there is a current user logged in
       return this.$store.state.auth.user;
     },
-    showAdmin() {
+    showAdmin() {        //if parameters are met, then current user is an admin
       if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes('ROLE_ADMIN');
       }
 
       return false;
     },
-    showModerator() {
+    showModerator() {    //if parameters are met, then current user is a moderator
       if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes('ROLE_MODERATOR');
       }
@@ -74,7 +75,7 @@ export default {
       return false;
     }
   },
-  methods: {
+  methods: {    // method used for logging out
     logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');

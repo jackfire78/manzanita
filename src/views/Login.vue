@@ -41,7 +41,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-
+// use yup library to ensure validation is met before submission
 export default {
   name: "Login",
   components: {
@@ -62,16 +62,16 @@ export default {
     };
   },
   computed: {
-    loggedIn() {
+    loggedIn() {      //get instance of current user  if there is one logged in at the moment 
       return this.$store.state.auth.status.loggedIn;
     },
   },
-  created() {
+  created() {           //if logged iun then push to profile
     if (this.loggedIn) {
       this.$router.push("/profile");
     }
   },
-  methods: {
+  methods: {          //if user logs in successfully then push them towards profile page...otherwise send back error message
     handleLogin(user) {
       this.loading = true;
 

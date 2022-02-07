@@ -65,7 +65,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-
+//use yup to handle input validation before user submission
 export default {
   name: "Register",
   components: {
@@ -114,7 +114,7 @@ export default {
       schema,
     };
   },
-  computed: {
+  computed: {    //used with below commented method to push to profile is user is currently logged in (since only admins can create accounts, we will not force this method at the moment)
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
@@ -124,7 +124,7 @@ export default {
   //     this.$router.push("/profile");
   //   }
   // },
-  methods: {
+  methods: {        //error message if anything goes wrong, otherwise submit user and return success message. 
     handleRegister(user) {
       this.message = "";
       this.successful = false;
