@@ -1,4 +1,4 @@
-export default class User{
+export default class Event{
     constructor (eventName, eventDescription, eventPicture, eventPrice, eventDate, eventPresenters){
         this.eventName = eventName;
         this.eventDescription = eventDescription;
