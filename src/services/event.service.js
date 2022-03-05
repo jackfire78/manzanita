@@ -23,4 +23,4 @@ class EventService {
   }
 }
 
-export default new UserService();
+export default new EventService();
