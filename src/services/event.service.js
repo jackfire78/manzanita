@@ -2,8 +2,8 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 const API_URL = 'http://localhost:8080/api/test/';
-//service used for accessing data
-class UserService {
+//service used for accessing events data
+class EventService {
   //does not need a header. Accessible by anyone
   getPublicContent() {
     return axios.get(API_URL + 'all');

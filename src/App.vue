@@ -4,22 +4,40 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <a href class="navbar-brand" @click.prevent>Manzanita</a>
       <div class="navbar-nav mr-auto">
+      <!-- Public Pages -->
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
-            <font-awesome-icon icon="home" />Home
+            <font-awesome-icon icon="home" /> Home
           </router-link>
         </li>
+        <li v-if="!currentUser" class="nav-item">
+          <router-link to="/aboutUs" class="nav-link">
+            <font-awesome-icon icon="info" /> About Us
+          </router-link>
+        </li>
+        <li v-if="!currentUser" class="nav-item">
+          <router-link to="/contacts" class="nav-link">
+            <font-awesome-icon icon="at" /> Contacts
+          </router-link>
+        </li>
+        <!-- Account Privilege based Pages -->
         <li v-if="showAdmin" class="nav-item">
           <router-link to="/admin" class="nav-link">Admin Board</router-link>
         </li>
         <li v-if="showModerator" class="nav-item">
           <router-link to="/mod" class="nav-link">Moderator Board</router-link>
         </li>
-        <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+        <li v-if="currentUser" class="nav-item">
+          <router-link to="/user" class="nav-link">User</router-link>
         </li>
+        <li v-if="currentUser" class="nav-item"><router-link to="/events" class="nav-link">Events</router-link></li>
+        <li v-if="currentUser" class="nav-item"><router-link to="/activities" class="nav-link">Activities</router-link></li>
+        <li v-if="currentUser" class="nav-item"><router-link to="/clubs" class="nav-link">Clubs</router-link></li>
+        <li v-if="currentUser" class="nav-item"><router-link to="/movies" class="nav-link">Movies</router-link></li>
+        <li v-if="currentUser" class="nav-item"><router-link to="/restaurants" class="nav-link">Restaurants</router-link></li>
       </div>
 
+      <!-- Account Creation and Login/Logout Actions -->
       <div class="navbar-nav ml-auto">
         <li v-if="showAdmin" class="nav-item">
           <router-link to="/register" class="nav-link">
@@ -31,7 +49,6 @@
             <font-awesome-icon icon="sign-in-alt" />Login
           </router-link>
         </li>
-
         <li v-if="currentUser" class="nav-item">
           <router-link to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
