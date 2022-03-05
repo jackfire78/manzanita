@@ -1,25 +1,65 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
-      <h3>{{ content }}</h3>
+  <div class="bootstrap_datatables">
+  <div class="container py-5">
+    <header class="text-center text-black">
+      <h1 class="display-4">Movies</h1>
     </header>
+    <div class="row py-5">
+      <div class="col-lg-10 mx-auto">
+        <div class="card rounded shadow border-0">
+          <div class="card-body p-5 bg-white rounded">
+            <div class="table-responsive">
+              <table style="width:100%" class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Movie Name</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <tr v-for="movie in Movies" :key="movie.movieID">
+                    <td> {{ movie.movieName }} </td>
+                    <td> {{ movie.movieDate }} </td>
+                    <td> {{ movie.movieDescription }} </td>
+                    <td>
+                      <button v-if="currentUser" class="btn btn-success" @click="joinMovie(movie)"> Attend </button>
+                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editMovie(movie)"> Edit </button>
+                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteMovie(movie)"> Delete </button>
+                    </td>
+                  </tr>
+
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
 <script>
-import UserService from "../services/user.service";
+import MovieService from "../services/commLifeMovie.service";
 
 export default {
-  name: "Home",
+  name: "moviesList",
   data() {
     return {
-      content: "",
+      movies: [],
+      numberOfMovies:0,
     };
   },
   mounted() {
-    UserService.getPublicContent().then(
-      (response) => {
-        this.content = response.data;
+    MovieService.getAllMovies().then(
+      (data) => {
+        this.movies = data.data;
+        this.numberOfMovies= data.count;
       },
       (error) => {
         this.content =
@@ -31,5 +71,21 @@ export default {
       }
     );
   },
+  //return user if one is logged in
+  computed: {
+    currentUser() {          //if parameters are met, then there is a current user logged in
+      return this.$store.state.auth.user;
+    },
+    hasPrivilege() {        //if parameters are met, then current user is an admin
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_ADMIN');
+      }
+      else if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_MODERATOR');
+      }
+
+      return false;
+    },
+  }
 };
 </script>

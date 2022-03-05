@@ -4,23 +4,50 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/api/test/';
 //service used for accessing events data
 class EventService {
-  //does not need a header. Accessible by anyone
-  getPublicContent() {
-    return axios.get(API_URL + 'all');
-  }
+
   //any requests of authorized resources must contain an HTTP header 
-  //with the help of authHeader() function
-  getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() });
+ //create a new event
+  createCommunityEvent(communityEvents) {
+    //post data given at creating a new event.
+    return axios.post(API_URL + 'createCommunityEvent', { headers: authHeader(),
+      eventName: communityEvents.eventName,
+      eventDescription: communityEvents.eventDescription,
+      eventPicture: communityEvents.eventPicture,
+      eventPrice: communityEvents.eventPrice,
+      eventDate: communityEvents.eventDate,
+      eventPresenters: communityEvents.eventPresenters
+    });
   }
 
-  getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() });
+  //retrieve all events
+  getAllEvents() {
+    return axios.get(API_URL + 'allCommunityEvents', { headers: authHeader() })
+    .then(response => response.data);
   }
 
-  getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
+  //retrieve a single community event
+  getCommunityEvent(eventID) {
+    return axios.get(API_URL + 'getCommunityEvent/' + eventID , { headers: authHeader() })
+    .then(response => response.data);
   }
+
+  //edit an event
+  editCommunityEvent(communityEvents) {
+    return axios.put(API_URL + 'editCommunityEvent' + communityEvents.eventID, { headers: authHeader(),
+      eventName: communityEvents.eventName,
+      eventDescription: communityEvents.eventDescription,
+      eventPicture: communityEvents.eventPicture,
+      eventPrice: communityEvents.eventPrice,
+      eventDate: communityEvents.eventDate,
+      eventPresenters: communityEvents.eventPresenters
+    });
+  }
+
+  //delete a community event
+  deleteCommunityEvent(eventID) {
+    return axios.delete(API_URL + 'deleteCommunityEvent/' + eventID , { headers: authHeader() });
+  }
+
 }
 
-export default new UserService();
+export default new EventService();
