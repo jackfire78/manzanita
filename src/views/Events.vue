@@ -23,10 +23,10 @@
                     <th>Actions</th>
                   </tr>
                 </thead>
-
+                <h3>{{ events }}</h3>
                 <tbody>
                   
-                  <tr v-for="event in events" :key="event.eventID">
+                  <tr v-for="event in events" :key="event.id">
                     <td> {{ event.eventName }} </td>
                     <td> {{ event.eventPrice }} </td>
                     <td> {{ event.eventDate }} </td>
@@ -38,11 +38,11 @@
                     </td>
                   </tr>
 
-                                    <tr v-for="event in events" :key="event.eventID">
-                    <td> </td>
-                    <td> {{ event.eventPrice }} </td>
-                    <td> {{ event.eventDate }} </td>
-                    <td> {{ event.eventPresenters }} </td>
+                  <tr>
+                    <td> Golf </td>
+                    <td> 0 </td>
+                    <td> 03/07/2022 </td>
+                    <td> None </td>
                     <td>
                       <button v-if="currentUser" class="btn btn-success" @click="joinEvent(event)"> Join </button>
                       <button v-if="hasPrivilege" class="btn btn-primary" @click="editEvent(event)"> Edit </button>

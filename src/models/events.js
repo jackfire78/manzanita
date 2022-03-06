@@ -1,5 +1,6 @@
 export default class Event{
-    constructor (eventName, eventDescription, eventPicture, eventPrice, eventDate, eventPresenters){
+    constructor (id, eventName, eventDescription, eventPicture, eventPrice, eventDate, eventPresenters){
+        this.id = id;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventPicture = eventPicture;
