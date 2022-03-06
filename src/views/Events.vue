@@ -23,30 +23,18 @@
                     <th>Actions</th>
                   </tr>
                 </thead>
-                <h3>{{ events }}</h3>
+
                 <tbody>
                   
                   <tr v-for="event in events" :key="event.id">
                     <td> {{ event.eventName }} </td>
-                    <td> {{ event.eventPrice }} </td>
+                    <td>${{ event.eventPrice }} </td>
                     <td> {{ event.eventDate }} </td>
                     <td> {{ event.eventPresenters }} </td>
                     <td>
-                      <button v-if="currentUser" class="btn btn-success" @click="joinEvent(event)"> Join </button>
-                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editEvent(event)"> Edit </button>
-                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteEvent(event)"> Delete </button>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td> Golf </td>
-                    <td> 0 </td>
-                    <td> 03/07/2022 </td>
-                    <td> None </td>
-                    <td>
-                      <button v-if="currentUser" class="btn btn-success" @click="joinEvent(event)"> Join </button>
-                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editEvent(event)"> Edit </button>
-                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteEvent(event)"> Delete </button>
+                      <button v-if="currentUser" class="btn btn-success btn-sm" @click="joinEvent(event.id)"> Join </button>
+                      <button v-if="hasPrivilege" class="btn btn-primary btn-sm" @click="editEvent(event.id)"> Edit </button>
+                      <button v-if="hasPrivilege" class="btn btn-danger btn-sm" @click="deleteEvent(event.id)"> Delete </button>
                     </td>
                   </tr>
 
@@ -79,17 +67,27 @@ export default {
       EventService.getAllEvents().then(response => {
         this.events = response.data;
         console.log(response);
-        console.log(this.numberOfEvents+1);
-        this.numberOfEvents= response.count;
+        this.numberOfEvents= this.events.count;
+        console.log(this.numberOfEvents);
+
       })
       .catch((error) => {
         console.log(error);
         this.errorMsg = 'Error retrieving data';
       })
     },
+    deleteEvent(eventId){
+      EventService.deleteCommunityEvent(eventId).then(response => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error deleting data';
+      })
+    },
   },
   mounted() {
-    this.getEvents()
+    this.getEvents();
   },
   //return user if one is logged in
   computed: {
