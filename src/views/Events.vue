@@ -7,9 +7,13 @@
     <div class="row py-5">
       <div class="col-lg-10 mx-auto">
         <div class="card rounded shadow border-0">
-          <div class="card-body p-5 bg-white rounded">
+          <div class="card-body p-5 bg-white rounded">           
+            <button v-if="hasPrivilege" class="btn btn-primary float-right"> Create </button>
+            <a v-if="hasPrivilege" href="createEvent.vue" class="btn btn-info" role="button">Create</a>
+
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered">
+                <label> {{numberOfEvents}} </label>
                 <thead>
                   <tr>
                     <th>Event Name</th>
@@ -21,7 +25,7 @@
                 </thead>
 
                 <tbody>
-
+                  
                   <tr v-for="event in events" :key="event.eventID">
                     <td> {{ event.eventName }} </td>
                     <td> {{ event.eventPrice }} </td>
@@ -48,6 +52,7 @@
 
 <script>
 import EventService from "../services/event.service";
+const eventService = new EventService();
 
 export default {
   name: "eventsList",
@@ -58,7 +63,7 @@ export default {
     };
   },
   mounted() {
-    EventService.getAllEvents().then(
+    eventService.getAllEvents().then(
       (data) => {
         this.events = data.data;
         this.numberOfEvents= data.count;

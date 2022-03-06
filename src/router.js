@@ -1,9 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "./views/Home.vue";
-import Login from "./views/Login.vue";
-import Register from "./views/Register.vue";
 import Contacts from "./views/Contacts.vue";
 import AboutUs from "./views/AboutUs.vue";
+
+import Login from "./views/Login.vue";
+import Register from "./views/Register.vue";
+
+import CreateEvent from "./views/CreateEvent.vue";
 
 // lazy-loaded
 const Profile = () => import("./views/Profile.vue")
@@ -15,6 +18,8 @@ const BoardUser = () => import("./views/UserBoard.vue")
 
 //community based pages
 const Events = () => import("./views/Events.vue")
+const EditEvent = () => import("./views/EditEvent.vue")
+
 const Activities = () => import("./views/Activities.vue")
 const Clubs = () => import("./views/Clubs.vue")
 const Movies = () => import("./views/Movies.vue")
@@ -73,6 +78,22 @@ const routes = [
     name: "events",
     component: Events,
   },
+  {
+    path: "/eventDetailed",
+    name: "eventDetailed",
+    component: EventDetailed,
+  },  
+  {
+    path: "/createEvent",
+    name: "createEvent",
+    component: CreateEvent,
+  },
+  {
+    path: "/editEvent",
+    name: "editEvent",
+    component: EditEvent,
+  },  
+
   {
     path: "/activities",
     name: "activities",
