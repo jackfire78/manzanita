@@ -1,11 +1,11 @@
 <!-- Site wide css. Contains navigation bar that will be used on every page. Will contain footer in the future. -->
 <template>
-  <div id="app">
+  <div id="app" class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <a href class="navbar-brand" @click.prevent>Manzanita</a>
       <div class="navbar-nav mr-auto">
       <!-- Public Pages -->
-        <li class="nav-item">
+        <li v-if="!currentUser" class="nav-item">
           <router-link to="/home" class="nav-link">
             <font-awesome-icon icon="home" /> Home
           </router-link>
@@ -68,6 +68,12 @@
       <router-view />
     </div>
   </div>
+<br><br><br>
+<footer class="bg-light pb-5 mt-auto">
+  <div class="container text-center">
+    <p class="font-italic text-muted mb-0">&copy; Where any copyright claims can be reserved </p>
+  </div>
+</footer>
 </template>
 
 <script>

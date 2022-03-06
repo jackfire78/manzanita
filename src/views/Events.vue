@@ -8,12 +8,12 @@
       <div class="col-lg-10 mx-auto">
         <div class="card rounded shadow border-0">
           <div class="card-body p-5 bg-white rounded">           
-            <button v-if="hasPrivilege" class="btn btn-primary float-right"> Create </button>
-            <a v-if="hasPrivilege" href="createEvent.vue" class="btn btn-info" role="button">Create</a>
-
+            <a v-if="hasPrivilege" class="btn btn-info btn-sm" role="button">
+              <router-link to="/createEvent" class="nav-link text-white">Create Event</router-link>
+            </a>
+            <h3 v-if="errorMsg">{{ errorMsg }}</h3>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered">
-                <label> {{numberOfEvents}} </label>
                 <thead>
                   <tr>
                     <th>Event Name</th>
@@ -38,6 +38,18 @@
                     </td>
                   </tr>
 
+                                    <tr v-for="event in events" :key="event.eventID">
+                    <td> </td>
+                    <td> {{ event.eventPrice }} </td>
+                    <td> {{ event.eventDate }} </td>
+                    <td> {{ event.eventPresenters }} </td>
+                    <td>
+                      <button v-if="currentUser" class="btn btn-success" @click="joinEvent(event)"> Join </button>
+                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editEvent(event)"> Edit </button>
+                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteEvent(event)"> Delete </button>
+                    </td>
+                  </tr>
+
                 </tbody>
 
               </table>
@@ -52,31 +64,32 @@
 
 <script>
 import EventService from "../services/event.service";
-const eventService = new EventService();
 
 export default {
-  name: "eventsList",
+  name: "Events",
   data() {
     return {
       events: [],
       numberOfEvents:0,
+      errorMsg: '',
     };
   },
+  methods: {
+    getEvents(){
+      EventService.getAllEvents().then(response => {
+        this.events = response.data;
+        console.log(response);
+        console.log(this.numberOfEvents+1);
+        this.numberOfEvents= response.count;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })
+    },
+  },
   mounted() {
-    eventService.getAllEvents().then(
-      (data) => {
-        this.events = data.data;
-        this.numberOfEvents= data.count;
-      },
-      (error) => {
-        this.content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-      }
-    );
+    this.getEvents()
   },
   //return user if one is logged in
   computed: {
@@ -87,7 +100,7 @@ export default {
       if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes('ROLE_ADMIN');
       }
-      else if (this.currentUser && this.currentUser.roles) {
+      if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes('ROLE_MODERATOR');
       }
 

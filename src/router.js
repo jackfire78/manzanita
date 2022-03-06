@@ -19,6 +19,7 @@ const BoardUser = () => import("./views/UserBoard.vue")
 //community based pages
 const Events = () => import("./views/Events.vue")
 const EditEvent = () => import("./views/EditEvent.vue")
+const EventDetailed = () => import("./views/EventDetailed.vue")
 
 const Activities = () => import("./views/Activities.vue")
 const Clubs = () => import("./views/Clubs.vue")
@@ -85,7 +86,6 @@ const routes = [
   },  
   {
     path: "/createEvent",
-    name: "createEvent",
     component: CreateEvent,
   },
   {

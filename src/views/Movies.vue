@@ -8,6 +8,11 @@
       <div class="col-lg-10 mx-auto">
         <div class="card rounded shadow border-0">
           <div class="card-body p-5 bg-white rounded">
+            <a v-if="hasPrivilege" class="btn btn-info btn-sm" role="button">
+              <router-link to="" class="nav-link text-white">Add Movie</router-link>
+            </a>
+
+
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered">
                 <thead>

@@ -22,7 +22,7 @@ class EventService {
   //retrieve all events
   getAllEvents() {
     return axios.get(API_URL + 'allCommunityEvents', { headers: authHeader() })
-    .then(response => response.data);
+    .then((response => response.data));
   }
 
   //retrieve a single community event
