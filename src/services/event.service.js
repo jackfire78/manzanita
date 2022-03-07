@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:8080/api/communityEvents/';
 class EventService {
 
   //any requests of authorized resources must contain an HTTP header 
- //create a new event
+  //create a new event
   createCommunityEvent(communityEvents) {
     //post data given at creating a new event.
     return axios.post(API_URL + 'createCommunityEvent', { headers: authHeader(),

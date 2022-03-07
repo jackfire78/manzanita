@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import EventService from "../services/event.service";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 //use yup to handle input validation before user submission
@@ -70,7 +71,7 @@ export default {
     ErrorMessage,
   },
   data() {
-    const schema = yup.object().shape({
+    const schema = yup.object().shape({     
       eventName: yup
         .string()
         .required("Event Name is required!")
@@ -105,21 +106,19 @@ export default {
       schema,
     };
   },
-  computed: {    //
-    
-  },
-
   methods: {        //error message if anything goes wrong, otherwise submit event and return success message. 
     createEvent(event) {
       this.message = "";
       this.successful = false;
       this.loading = true;
+      console.log(event);
       // ------ FIX PROBLEM HERE!!!    -----------
-      this.$store.dispatch("auth/createEvent", event).then(
-        (data) => {
+      EventService.createCommunityEvent(this.event)
+        .then((data) => {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
+          this.$router.push('/events');
         },
         (error) => {
           this.message =

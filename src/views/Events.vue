@@ -76,6 +76,9 @@ export default {
         this.errorMsg = 'Error retrieving data';
       })
     },
+    editEvent(){
+      this.$router.push('/editEvent');
+    },
     deleteEvent(eventId){
       EventService.deleteCommunityEvent(eventId).then(response => {
         console.log(response);

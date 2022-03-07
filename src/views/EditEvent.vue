@@ -3,55 +3,63 @@
     <div class="card card-container">
       <img
         id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        src="{{ event.eventPicture }}"
         class="profile-img-card"
       />
-      <Form @submit="createEvent" :validation-schema="schema">
-        <div v-if="!successful">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <Field name="username" type="text" class="form-control" />
-            <ErrorMessage name="username" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <Field name="email" type="email" class="form-control" />
-            <ErrorMessage name="email" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
-            <Field name="phoneNumber" type="text" class="form-control" />
-            <ErrorMessage name="phoneNumber" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="unitNumber">Unit Number</label>
-            <Field name="unitNumber" type="text" class="form-control" />
-            <ErrorMessage name="unitNumber" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="role">Role</label>
-            <Field name="role" type="text" class="form-control" />
-            <ErrorMessage name="role" class="error-feedback" />
-          </div>
+      <br /><br /><br /><br /><br />
+      <div class="col-md-12">
+        <div class="card card-container">
+          <Form @submit="createEvent" :validation-schema="schema">
+            <div v-if="!successful">
+              <div class="form-group">
+                <label for="eventName">Event Name</label>
+                <Field name="eventName" type="text" class="form-control">{{event.eventName}}</Field>
+                <ErrorMessage name="eventName" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="eventDescription">Event Description</label>
+                <Field name="eventDescription" type="text" class="form-control">{{event.eventDescription}}</Field>
+                <ErrorMessage name="eventDescription" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="eventPrice">Event Price</label>
+                <Field name="eventPrice" type="number" class="form-control">{{event.eventPrice}}</Field>
+                <ErrorMessage name="eventPrice" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="eventDate">Event Date</label>
+                <Field name="eventDate" type="date" class="form-control">{{event.eventDate}}</Field>
+                <ErrorMessage name="eventDate" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="eventPicture">Event Picture</label>
+                <Field name="eventPicture" type="text" class="form-control">{{event.eventPicture}}</Field>
+                <ErrorMessage name="eventPicture" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="eventPresenters">Event Presenters</label>
+                <Field name="eventPresenters" type="text" class="form-control">{{event.eventPresenters}}</Field>
+                <ErrorMessage name="eventPresenters" class="error-feedback" />
+              </div>
 
-          <div class="form-group">
-            <button class="btn btn-primary btn-block" :disabled="loading">
-              <span
-                v-show="loading"
-                class="spinner-border spinner-border-sm"
-              ></span>
-              Sign Up
-            </button>
+              <div class="form-group">
+                <button class="btn btn-primary btn-block" :disabled="loading">
+                  <span v-show="loading"
+                    class="spinner-border spinner-border-sm">
+                  </span>
+                  Edit Selected Event
+                </button>
+              </div>
+            </div>
+          </Form>
+          <div
+            v-if="message"
+            class="alert"
+            :class="successful ? 'alert-success' : 'alert-danger'"
+          >
+            {{ message }}
           </div>
         </div>
-      </Form>
-
-      <div
-        v-if="message"
-        class="alert"
-        :class="successful ? 'alert-success' : 'alert-danger'"
-      >
-        {{ message }}
       </div>
     </div>
   </div>
@@ -70,36 +78,31 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      username: yup
+      eventName: yup
         .string()
-        .required("Username is required!")
+        .required("Event Name is required!")
         .min(3, "Must be at least 3 characters!")
         .max(20, "Must be maximum 20 characters!"),
-      password: yup
+      eventDescription: yup
         .string()
-        .required("Password is required!")
+        .required("Description is required!")
         .min(6, "Must be at least 6 characters!")
-        .max(40, "Must be maximum 40 characters!"),
-      email: yup
+        .max(500, "Must be maximum 500 characters!"),
+      eventPrice: yup
+        .number()
+        .required("Price is required!"),
+      eventDate: yup
+        .date()
+        .required("Date is required!"),
+      eventPicture: yup
         .string()
-        .required("Email is required!")
-        .email("Email is invalid!")
-        .max(50, "Must be maximum 50 characters!"),
-      phoneNumber: yup
+        .required("Picture is required!")
+        .min(5, "Must be at least 5 characters!"),
+      eventPresenters: yup
         .string()
-        .required("Phone # is required!")
-        .min(10, "Must be 10 Numbers!")
-        .max(10, "Must be 10 Numbers!"),
-      unitNumber: yup
-        .string()
-        .required("Unit # is required!")
-        .min(1, "Must be at least 1 number!")
-        .max(5, "Must be at most 5 numbers!"),
-      role: yup
-        .string()
-        .required("Role is required!")
+        .required("Event Presenters is required!")
         .min(3, "Must be at least 3 characters!")
-        .max(25, "Must be maximum 25 characters!"),
+        .max(100, "Must be maximum 100 characters!"),
     });
 
     return {
@@ -109,17 +112,18 @@ export default {
       schema,
     };
   },
-  computed: {    //
-    
+  computed: {
+    //
   },
 
-  methods: {        //error message if anything goes wrong, otherwise submit user and return success message. 
-    createEvent(event) {
+  methods: {
+    //error message if anything goes wrong, otherwise submit user and return success message.
+    editEvent(event) {
       this.message = "";
       this.successful = false;
       this.loading = true;
 
-      this.$store.dispatch("auth/createEvent", event).then(
+      this.$store.dispatch("auth/editEvent", event).then(
         (data) => {
           this.message = data.message;
           this.successful = true;
@@ -142,11 +146,11 @@ export default {
 </script>
 
 <style scoped>
-  .profile-img-card {
-    text-align:center;
-  }
-  img {
-    width:200px;
-    height:200px;
-  }
+.profile-img-card {
+  text-align: center;
+}
+img {
+  width: 200px;
+  height: 200px;
+}
 </style>
