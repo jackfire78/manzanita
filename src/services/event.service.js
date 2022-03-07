@@ -7,15 +7,15 @@ class EventService {
 
   //any requests of authorized resources must contain an HTTP header 
   //create a new event
-  createCommunityEvent(communityEvents) {
+  createCommunityEvent(event) {
     //post data given at creating a new event.
     return axios.post(API_URL + 'createCommunityEvent', { headers: authHeader(),
-      eventName: communityEvents.eventName,
-      eventDescription: communityEvents.eventDescription,
-      eventPicture: communityEvents.eventPicture,
-      eventPrice: communityEvents.eventPrice,
-      eventDate: communityEvents.eventDate,
-      eventPresenters: communityEvents.eventPresenters
+      eventName: event.eventName,
+      eventDescription: event.eventDescription,
+      eventPicture: event.eventPicture,
+      eventPrice: event.eventPrice,
+      eventDate: event.eventDate,
+      eventPresenters: event.eventPresenters
     });
   }
 
@@ -25,21 +25,21 @@ class EventService {
   }
 
   //retrieve a single community event
-  getCommunityEvent(eventID) {
-    return axios.get(API_URL + 'getCommunityEvent/' + eventID , { headers: authHeader() })
-    .then(response => response.data);
+  getCommunityEvent(eventId) {
+    return axios.get(API_URL + `getCommunityEvent/${eventId}` , { headers: authHeader() });
   }
 
   //edit an event
-  editCommunityEvent(communityEvents) {
-    return axios.put(API_URL + 'editCommunityEvent' + communityEvents.eventID, { headers: authHeader(),
-      eventName: communityEvents.eventName,
-      eventDescription: communityEvents.eventDescription,
-      eventPicture: communityEvents.eventPicture,
-      eventPrice: communityEvents.eventPrice,
-      eventDate: communityEvents.eventDate,
-      eventPresenters: communityEvents.eventPresenters
-    });
+  editCommunityEvent(eventId, event) {
+    return axios.put(API_URL + `editCommunityEvent/${eventId}`, { headers: authHeader(),
+      eventName: event.eventName,
+      eventDescription: event.eventDescription,
+      eventPicture: event.eventPicture,
+      eventPrice: event.eventPrice,
+      eventDate: event.eventDate,
+      eventPresenters: event.eventPresenters
+    })
+    .catch(error => {console.log(error)});     
   }
 
   //delete a community event

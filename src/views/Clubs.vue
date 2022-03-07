@@ -51,28 +51,49 @@
 import ClubService from "../services/commLifeClub.service";
 
 export default {
-  name: "clubsList",
+  name: "Clubs",
   data() {
     return {
       clubs: [],
       numberOfClubs:0,
+      errorMsg: '',
     };
   },
+  methods: {
+    getClubs(){
+      ClubService.getCommunityLifeClub().then(response => {
+        this.clubs = response.data;
+        console.log(response);
+        this.numberOfClubs= this.clubs.count;
+        console.log(this.numberOfClubs);
+
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })
+    },
+    editClub(clubId){
+        this.$router.push('/editClub/'+clubId)
+      
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })      
+    },
+    deleteClub(clubId){
+      ClubService.deleteCommunityLifeClub(clubId).then(response => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error deleting data';
+      })
+      this.$router.go()
+    },
+  },
   mounted() {
-    ClubService.getAllClubs().then(
-      (data) => {
-        this.clubs = data.data;
-        this.numberOfClubs= data.count;
-      },
-      (error) => {
-        this.content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-      }
-    );
+    this.getClubs();
   },
   //return user if one is logged in
   computed: {

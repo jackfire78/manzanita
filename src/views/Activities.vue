@@ -12,7 +12,7 @@
               <router-link to="/" class="nav-link text-white">Create Activity</router-link>
             </a>
 
-
+            <h3 v-if="errorMsg">{{ errorMsg }}</h3>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered">
                 <thead>
@@ -27,15 +27,15 @@
 
                 <tbody>
 
-                  <tr v-for="activity in Activities" :key="activity.activityID">
+                  <tr v-for="activity in Activities" :key="activity.id">
                     <td> {{ activity.activityName }} </td>
                     <td> {{ activity.activityDate }} </td>
                     <td> {{ activity.activityDescription }} </td>
                     <td> {{ activity.activityPrice }} </td>
                     <td>
-                      <button v-if="currentUser" class="btn btn-success" @click="joinActivity(activity)"> Join </button>
-                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editActivity(activity)"> Edit </button>
-                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteActivity(activity)"> Delete </button>
+                      <button v-if="currentUser" class="btn btn-success" @click="joinActivity(activity.id)"> Join </button>
+                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editActivity(activity.id)"> Edit </button>
+                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteActivity(activity.id)"> Delete </button>
                     </td>
                   </tr>
 
@@ -55,28 +55,49 @@
 import ActivityService from "../services/commLifeActivity.service";
 
 export default {
-  name: "activitiesList",
+  name: "Activities",
   data() {
     return {
       activities: [],
       numberOfActivities:0,
+      errorMsg: '',
     };
   },
+  methods: {
+    getActivities(){
+      ActivityService.getAllActivities().then(response => {
+        this.activities = response.data;
+        console.log(response);
+        this.numberOfActivities= this.activities.count;
+        console.log(this.numberOfActivities);
+
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })
+    },
+    editActivity(activityId){
+        this.$router.push('/editActivity/'+activityId)
+      
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })      
+    },
+    deleteActivity(activityId){
+      ActivityService.deleteCommunityLifeActivity(activityId).then(response => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error deleting data';
+      })
+      this.$router.go()
+    },
+  },
   mounted() {
-    ActivityService.getAllActivities().then(
-      (data) => {
-        this.activities = data.data;
-        this.numberOfActivities= data.count;
-      },
-      (error) => {
-        this.content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-      }
-    );
+    this.getActivities();
   },
   //return user if one is logged in
   computed: {

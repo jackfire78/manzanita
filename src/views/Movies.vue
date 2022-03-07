@@ -53,28 +53,49 @@
 import MovieService from "../services/commLifeMovie.service";
 
 export default {
-  name: "moviesList",
+  name: "Movies",
   data() {
     return {
       movies: [],
       numberOfMovies:0,
+      errorMsg: '',
     };
   },
+  methods: {
+    getMovies(){
+      MovieService.getAllMovies().then(response => {
+        this.movies = response.data;
+        console.log(response);
+        this.numberOfMovies= this.movies.count;
+        console.log(this.numberOfMovies);
+
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })
+    },
+    editMovie(movieId){
+        this.$router.push('/editMovie/'+movieId)
+      
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })      
+    },
+    deleteMovie(movieId){
+      MovieService.deleteCommunityLifeMovie(movieId).then(response => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error deleting data';
+      })
+      this.$router.go()
+    },
+  },
   mounted() {
-    MovieService.getAllMovies().then(
-      (data) => {
-        this.movies = data.data;
-        this.numberOfMovies= data.count;
-      },
-      (error) => {
-        this.content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-      }
-    );
+    this.getMovies();
   },
   //return user if one is logged in
   computed: {

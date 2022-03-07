@@ -7,6 +7,10 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 
 import CreateEvent from "./views/CreateEvent.vue";
+import CreateActivity from "./views/CreateActivity.vue";
+//import CreateClub from "./views/CreateClub.vue";
+//import CreateMovie from "./views/CreateMovie.vue";
+//import CreateRestaurant from "./views/CreateRestaurant.vue";
 
 // lazy-loaded
 const Profile = () => import("./views/Profile.vue")
@@ -16,14 +20,23 @@ const Profile = () => import("./views/Profile.vue")
 const ModStaff = () => import("./views/ModBoard.vue")
 const BoardUser = () => import("./views/UserBoard.vue")
 
-//community based pages
+//community Event pages
 const Events = () => import("./views/Events.vue")
 const EditEvent = () => import("./views/EditEvent.vue")
 const EventDetailed = () => import("./views/EventDetailed.vue")
 
+//community life Activity pages
 const Activities = () => import("./views/Activities.vue")
+const EditActivity = () => import("./views/EditActivity.vue")
+const ActivityDetailed = () => import("./views/ActivityDetailed.vue")
+
+//community life Club pages
 const Clubs = () => import("./views/Clubs.vue")
+
+//community life Movie pages
 const Movies = () => import("./views/Movies.vue")
+
+//community life Restaurant pages
 const Restaurants = () => import("./views/Restaurants.vue")
 
 const routes = [
@@ -74,6 +87,8 @@ const routes = [
   },
 
   //community based pages
+
+  //Community Event pages
   {
     path: "/events",
     name: "events",
@@ -89,26 +104,47 @@ const routes = [
     component: CreateEvent,
   },
   {
-    path: "/editEvent",
+    path: "/editEvent/:id",
     name: "editEvent",
     component: EditEvent,
   },  
 
+  //Community Life Activity pages
   {
     path: "/activities",
     name: "activities",
     component: Activities,
   },
   {
+    path: "/activityDetailed",
+    name: "activityDetailed",
+    component: ActivityDetailed,
+  },  
+  {
+    path: "/createActivity",
+    component: CreateActivity,
+  },
+  {
+    path: "/editActivity/:id",
+    name: "editActivity",
+    component: EditActivity,
+  },
+
+  //Community Life Club pages
+  {
     path: "/clubs",
     name: "clubs",
     component: Clubs,
   },
+  
+  //Community Life Movie pages
   {
     path: "/movies",
     name: "movies",
     component: Movies,
   },
+
+  //Community Life Restaurant pages
   {
     path: "/restaurants",
     name: "restaurants",

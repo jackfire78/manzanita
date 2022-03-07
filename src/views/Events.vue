@@ -76,8 +76,13 @@ export default {
         this.errorMsg = 'Error retrieving data';
       })
     },
-    editEvent(){
-      this.$router.push('/editEvent');
+    editEvent(eventId){
+        this.$router.push('/editEvent/'+eventId)
+      
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })      
     },
     deleteEvent(eventId){
       EventService.deleteCommunityEvent(eventId).then(response => {
@@ -87,6 +92,7 @@ export default {
         console.log(error);
         this.errorMsg = 'Error deleting data';
       })
+      this.$router.go()
     },
   },
   mounted() {
