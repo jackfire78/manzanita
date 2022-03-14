@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = 'http://localhost:8080/api/lifeMovie/';
 //service used for accessing movie data
 class MovieService {
 
@@ -9,7 +9,7 @@ class MovieService {
  //create a new community life movie
   createCommunityLifeMovie(CLifeMovie) {
     //post data given at creating a new movie.
-    return axios.post(API_URL + 'createCLifeMovie', { headers: authHeader(),
+    return axios.post(API_URL + 'createLifeMovie', { headers: authHeader(),
       movieName: CLifeMovie.movieName,
       movieDate: CLifeMovie.movieDate,
       movieDescription: CLifeMovie.movieDescription,
@@ -18,17 +18,17 @@ class MovieService {
 
   //retrieve all movies
   getAllMovies() {
-    return axios.get(API_URL + 'allCLifeMovie', { headers: authHeader() })
+    return axios.get(API_URL + 'allComLifeMovies', { headers: authHeader() })
   }
 
   //retrieve a single community life movie
   getCommunityLifeMovie(movieID) {
-    return axios.get(API_URL + 'getCLifeMovie/' + movieID , { headers: authHeader() })
+    return axios.get(API_URL + `getComLifeMovie/${movieID}` , { headers: authHeader() })
   }
 
   //edit an movie
-  editCommunityLifeMovie(CLifeMovie) {
-    return axios.put(API_URL + 'editCLifeMovie' + CLifeMovie.movieID, { headers: authHeader(),
+  editCommunityLifeMovie(movieID, CLifeMovie) {
+    return axios.put(API_URL + `editComLifeMovie/${movieID}`, { headers: authHeader(),
       movieName: CLifeMovie.movieName,
       movieDate: CLifeMovie.movieDate,
       movieDescription: CLifeMovie.movieDescription,
@@ -36,7 +36,7 @@ class MovieService {
   }
   //delete a community life movie
   deleteCommunityLifeMovie(movieID) {
-    return axios.delete(API_URL + 'deleteCLifeMovie/' + movieID , { headers: authHeader() });
+    return axios.delete(API_URL + `deleteComLifeMovie/${movieID}`, { headers: authHeader() });
   }
 
 }

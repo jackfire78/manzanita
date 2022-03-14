@@ -9,7 +9,7 @@
         <div class="card rounded shadow border-0">
           <div class="card-body p-5 bg-white rounded">
             <a v-if="hasPrivilege" class="btn btn-info btn-sm" role="button">
-              <router-link to="" class="nav-link text-white">Add Movie</router-link>
+              <router-link to="/createMovie" class="nav-link text-white">Add Movie</router-link>
             </a>
 
 
@@ -26,14 +26,14 @@
 
                 <tbody>
 
-                  <tr v-for="movie in Movies" :key="movie.movieID">
+                  <tr v-for="movie in movies" :key="movie.id">
                     <td> {{ movie.movieName }} </td>
                     <td> {{ movie.movieDate }} </td>
                     <td> {{ movie.movieDescription }} </td>
                     <td>
-                      <button v-if="currentUser" class="btn btn-success" @click="joinMovie(movie)"> Attend </button>
-                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editMovie(movie)"> Edit </button>
-                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteMovie(movie)"> Delete </button>
+                      <button v-if="currentUser" class="btn btn-success" @click="joinMovie(movie.id)"> Attend </button>
+                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editMovie(movie.id)"> Edit </button>
+                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteMovie(movie.id)"> Delete </button>
                     </td>
                   </tr>
 

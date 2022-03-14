@@ -9,7 +9,7 @@
         <div class="card rounded shadow border-0">
           <div class="card-body p-5 bg-white rounded">
             <a v-if="hasPrivilege" class="btn btn-info btn-sm" role="button">
-              <router-link to="/" class="nav-link text-white">Create Activity</router-link>
+              <router-link to="/createActivity" class="nav-link text-white">Create Activity</router-link>
             </a>
 
             <h3 v-if="errorMsg">{{ errorMsg }}</h3>
@@ -27,11 +27,11 @@
 
                 <tbody>
 
-                  <tr v-for="activity in Activities" :key="activity.id">
+                  <tr v-for="activity in activities" :key="activity.id">
                     <td> {{ activity.activityName }} </td>
                     <td> {{ activity.activityDate }} </td>
                     <td> {{ activity.activityDescription }} </td>
-                    <td> {{ activity.activityPrice }} </td>
+                    <td>${{ activity.activityPrice }} </td>
                     <td>
                       <button v-if="currentUser" class="btn btn-success" @click="joinActivity(activity.id)"> Join </button>
                       <button v-if="hasPrivilege" class="btn btn-primary" @click="editActivity(activity.id)"> Edit </button>

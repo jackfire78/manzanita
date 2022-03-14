@@ -9,7 +9,7 @@
         <div class="card rounded shadow border-0">
           <div class="card-body p-5 bg-white rounded">
             <a v-if="hasPrivilege" class="btn btn-info btn-sm" role="button">
-              <router-link to="/" class="nav-link text-white">Create Club</router-link>
+              <router-link to="/createClub" class="nav-link text-white">Create Club</router-link>
             </a>
 
             <h3 v-if="errorMsg">{{ errorMsg }}</h3>
@@ -25,13 +25,13 @@
 
                 <tbody>
 
-                  <tr v-for="club in Clubs" :key="club.clubID">
+                  <tr v-for="club in clubs" :key="club.id">
                     <td> {{ club.clubName }} </td>
                     <td> {{ club.clubDescription }} </td>
                     <td>
-                      <button v-if="currentUser" class="btn btn-success" @click="joinClub(club)"> Join </button>
-                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editClub(club)"> Edit </button>
-                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteClub(club)"> Delete </button>
+                      <button v-if="currentUser" class="btn btn-success" @click="joinClub(club.id)"> Join </button>
+                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editClub(club.id)"> Edit </button>
+                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteClub(club.id)"> Delete </button>
                     </td>
                   </tr>
 
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     getClubs(){
-      ClubService.getCommunityLifeClub().then(response => {
+      ClubService.getAllClubs().then(response => {
         this.clubs = response.data;
         console.log(response);
         this.numberOfClubs= this.clubs.count;

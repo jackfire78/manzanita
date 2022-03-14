@@ -2,38 +2,28 @@
 <br><br><br><br><br>
   <div class="col-md-12">
     <div class="card card-container">
-      <Form @submit="createEvent" :validation-schema="schema">
+      <Form @submit="createActivity" :validation-schema="schema">
         <div v-if="!successful">
-          <div class="form-group">
-            <label for="eventName">Event Name</label>
-            <Field name="eventName" type="text" class="form-control" />
-            <ErrorMessage name="eventName" class="error-feedback" />
-          </div>
-            <div class="form-group">
-            <label for="eventDescription">Event Description</label>
-            <Field name="eventDescription" type="text" class="form-control" />
-            <ErrorMessage name="eventDescription" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="eventPrice">Event Price</label>
-            <Field name="eventPrice" type="number" class="form-control" />
-            <ErrorMessage name="eventPrice" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="eventDate">Event Date</label>
-            <Field name="eventDate" type="date" class="form-control" />
-            <ErrorMessage name="eventDate" class="error-feedback" />
-          </div>         
-          <div class="form-group">
-            <label for="eventPicture">Event Picture</label>
-            <Field name="eventPicture" type="text" class="form-control" />
-            <ErrorMessage name="eventPicture" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="eventPresenters">Event Presenters</label>
-            <Field name="eventPresenters" type="text" class="form-control" />
-            <ErrorMessage name="eventPresenters" class="error-feedback" />
-          </div>
+              <div class="form-group">
+                <label for="activityName">Activity Name</label>
+                <Field name="activityName" type="text" class="form-control" />
+                <ErrorMessage name="activityName" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="activityDate">Activity Date</label>
+                <Field name="activityDate" type="Date" class="form-control" />
+                <ErrorMessage name="activityDate" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="activityDescription">Activity Description</label>
+                <Field name="activityDescription" type="text" class="form-control" />
+                <ErrorMessage name="activityDescription" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="activityPrice">Activity Price</label>
+                <Field name="activityPrice" type="number" class="form-control" />
+                <ErrorMessage name="activityPrice" class="error-feedback" />
+              </div>
 
           <div class="form-group">
             <button class="btn btn-primary btn-block" :disabled="loading">
@@ -41,7 +31,7 @@
                 v-show="loading"
                 class="spinner-border spinner-border-sm"
               ></span>
-              Create event
+              Create Activity
             </button>
           </div>
         </div>
@@ -59,12 +49,12 @@
 </template>
 
 <script>
-import EventService from "../services/event.service";
+import ActivityService from "../services/commLifeActivity.service";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 //use yup to handle input validation before user submission
 export default {
-  name: "createEvent",
+  name: "createActivity",
   components: {
     Form,
     Field,
@@ -72,31 +62,22 @@ export default {
   },
   data() {
     const schema = yup.object().shape({     
-      eventName: yup
+      activityName: yup
         .string()
-        .required("Event Name is required!")
+        .required("Activity Name is required!")
         .min(3, "Must be at least 3 characters!")
         .max(20, "Must be maximum 20 characters!"),
-      eventDescription: yup
+      activityDate: yup
+        .date()
+        .required("Date is required!"),
+      activityDescription: yup
         .string()
         .required("Description is required!")
         .min(6, "Must be at least 6 characters!")
         .max(500, "Must be maximum 500 characters!"),
-      eventPrice: yup
+      activityPrice: yup
         .number()
         .required("Price is required!"),
-      eventDate: yup
-        .date()
-        .required("Date is required!"),
-      eventPicture: yup
-        .string()
-        .required("Picture is required!")
-        .min(5, "Must be at least 5 characters!"),
-      eventPresenters: yup
-        .string()
-        .required("Event Presenters is required!")
-        .min(3, "Must be at least 3 characters!")
-        .max(100, "Must be maximum 100 characters!"),
     });
 
     return {
@@ -106,19 +87,19 @@ export default {
       schema,
     };
   },
-  methods: {        //error message if anything goes wrong, otherwise submit event and return success message. 
-    createEvent(event) {
+  methods: {        //error message if anything goes wrong, otherwise submit activity and return success message. 
+    createActivity(activity) {
       this.message = "";
       this.successful = false;
       this.loading = true;
-      console.log(event);
-      // ------ FIX PROBLEM HERE!!!    -----------
-      EventService.createCommunityEvent(event)
+      console.log(activity);
+      
+      ActivityService.createCommunityLifeActivity(activity)
         .then((data) => {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
-          this.$router.push('/events');
+          this.$router.push('/activities');
         },
         (error) => {
           this.message =
@@ -136,12 +117,3 @@ export default {
 };
 </script>
 
-<style scoped>
-  .profile-img-card {
-    text-align:center;
-  }
-  img {
-    width:200px;
-    height:200px;
-  }
-</style>

@@ -8,20 +8,16 @@
         <div class="card card-container">
           <Form @submit="editClub" :validation-schema="schema">
             <div v-if="!successful">
-              <div class="form-group">
-                <label for="eventName">Club Name</label>
-                <Field name="eventName" type="text" class="form-control" v-model="currentEvent.eventName"/>
-                <ErrorMessage name="eventName" class="error-feedback" />
-              </div>
-              <div class="form-group">
+
               <div class="form-group">
                 <label for="clubName">Club Name</label>
                 <Field name="clubName" type="text" class="form-control" v-model="currentClub.clubName"/>
                 <ErrorMessage name="clubName" class="error-feedback" />
               </div>
-                <div class="form-group">
+              <div class="form-group">
+              <div class="form-group">
                 <label for="clubDescription">Club Description</label>
-                <Field name="clubDescription" type="text" class="form-control" v-model="currentClub.clubName"/>
+                <Field name="clubDescription" type="text" class="form-control" v-model="currentClub.clubDescription"/>
                 <ErrorMessage name="clubDescription" class="error-feedback" />
               </div>
 
@@ -34,6 +30,7 @@
                 </button>
               </div>
             </div>
+          </div>
           </Form>
           <div
             v-if="message"

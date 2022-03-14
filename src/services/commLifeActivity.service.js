@@ -7,17 +7,17 @@ class ActivityService {
 
   //any requests of authorized resources must contain an HTTP header 
  //create a new community life activity
-  createCommunityLifeActivity(CLifeActivity) {
+  createCommunityLifeActivity(activity) {
     //post data given at creating a new account.
     return axios.post(API_URL + 'createLifeActivity', { headers: authHeader(),
-      activityName: CLifeActivity.activityName,
-      activityDate: CLifeActivity.activityDate,
-      activityDescription: CLifeActivity.activityDescription,
-      activityPrice: CLifeActivity.activityPrice
+      activityName: activity.activityName,
+      activityDate: activity.activityDate,
+      activityDescription: activity.activityDescription,
+      activityPrice: activity.activityPrice
     });
   }
 
-  //retrieve all events
+  //retrieve all activities
   getAllActivities() {
     return axios.get(API_URL + 'allComLifeActivities', { headers: authHeader() })
   }

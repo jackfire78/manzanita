@@ -10,8 +10,7 @@ class ClubService {
   createCommunityLifeClub(CLifeClub) {
     //post data given at creating a new club.
     return axios.post(API_URL + 'createLifeClub', { headers: authHeader(),
-      clubName: CLifeClub.clubName,
-      clubDescription: CLifeClub.clubDescription,
+      clubName: CLifeClub.clubName,clubDescription: CLifeClub.clubDescription,
     });
   }
 

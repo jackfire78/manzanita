@@ -11,8 +11,7 @@ class UserService {
 
   //retrieve information of current logged in user
   getMyProfile(id){
-    return axios.get(API_URL + 'getMyProfile/' + id , { headers: authHeader() })
-    .then(response => response.data);
+    return axios.get(`http://localhost:8080/api/auth/getPersonalInfo/${id}` , { headers: authHeader() })
   }
   //any requests of authorized resources must contain an HTTP header 
   //with the help of authHeader() function
