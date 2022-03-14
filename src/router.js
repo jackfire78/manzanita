@@ -9,7 +9,7 @@ import Register from "./views/Register.vue";
 import CreateEvent from "./views/CreateEvent.vue";
 import CreateActivity from "./views/CreateActivity.vue";
 import CreateClub from "./views/CreateClub.vue";
-//import CreateMovie from "./views/CreateMovie.vue";
+import CreateMovie from "./views/CreateMovie.vue";
 //import CreateRestaurant from "./views/CreateRestaurant.vue";
 
 // lazy-loaded
@@ -37,6 +37,7 @@ const ClubDetailed = () => import("./views/ClubDetailed.vue")
 
 //community life Movie pages
 const Movies = () => import("./views/Movies.vue")
+const EditMovie = () => import("./views/EditMovie.vue")
 
 //community life Restaurant pages
 const Restaurants = () => import("./views/Restaurants.vue")
@@ -158,6 +159,15 @@ const routes = [
     path: "/movies",
     name: "movies",
     component: Movies,
+  }, 
+  {
+    path: "/createMovie",
+    component: CreateMovie,
+  },
+  {
+    path: "/editMovie/:id",
+    name: "editMovie",
+    component: EditMovie,
   },
 
   //Community Life Restaurant pages
