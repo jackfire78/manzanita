@@ -104,13 +104,12 @@ export default {
       return this.$store.state.auth.user;
     },
     hasPrivilege() {        //if parameters are met, then current user is an admin
-      if (this.currentUser && this.currentUser.roles) {
+      if (this.currentUser && this.currentUser.roles.includes('ROLE_ADMIN')) {
         return this.currentUser.roles.includes('ROLE_ADMIN');
       }
-      if (this.currentUser && this.currentUser.roles) {
+      else if (this.currentUser && this.currentUser.roles.includes('ROLE_MODERATOR')) {
         return this.currentUser.roles.includes('ROLE_MODERATOR');
       }
-
       return false;
     },
   }

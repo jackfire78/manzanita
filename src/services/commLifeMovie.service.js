@@ -19,13 +19,11 @@ class MovieService {
   //retrieve all movies
   getAllMovies() {
     return axios.get(API_URL + 'allCLifeMovie', { headers: authHeader() })
-    .then(response => response.data);
   }
 
   //retrieve a single community life movie
   getCommunityLifeMovie(movieID) {
     return axios.get(API_URL + 'getCLifeMovie/' + movieID , { headers: authHeader() })
-    .then(response => response.data);
   }
 
   //edit an movie
