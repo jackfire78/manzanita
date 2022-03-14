@@ -1,65 +1,83 @@
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
-      <Form @submit="handleRegister" :validation-schema="schema">
-        <div v-if="!successful">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <Field name="username" type="text" class="form-control" />
-            <ErrorMessage name="username" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <Field name="email" type="email" class="form-control" />
-            <ErrorMessage name="email" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <Field name="password" type="password" class="form-control" />
-            <ErrorMessage name="password" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
-            <Field name="phoneNumber" type="text" class="form-control" />
-            <ErrorMessage name="phoneNumber" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="unitNumber">Unit Number</label>
-            <Field name="unitNumber" type="text" class="form-control" />
-            <ErrorMessage name="unitNumber" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="role">Role</label>
-            <Field name="role" type="text" class="form-control" />
-            <ErrorMessage name="role" class="error-feedback" />
-          </div>
+  <br><br><br>
+  <section class="h-auto w-auto" style="background-color: #4D545D;">
+    <div class="container py-5 h-auto ">
+      <div class="row d-flex justify-content-center h-auto">
+        <div class="col col-xl-6 ">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="row g-0">
+              <div class="col-md-2 col-lg-10 d-flex">
+                <div class="card-body p-4 p-lg-5 text-black">
 
-          <div class="form-group">
-            <button class="btn btn-primary btn-block" :disabled="loading">
-              <span
-                v-show="loading"
-                class="spinner-border spinner-border-sm"
-              ></span>
-              Sign Up
-            </button>
+                  <form>
+
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register a new account</h5>
+
+                    <Form @submit="handleRegister" :validation-schema="schema">
+                      <div v-if="!successful">
+                        <div class="form-group">
+                          <label for="username">Username</label>
+                          <Field name="username" type="text" class="form-control" placeholder="ex: Sam Smith"/>
+                          <ErrorMessage name="username" class="error-feedback" />
+                        </div>
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <Field name="email" type="email" class="form-control" placeholder="ex: test@email.com"/>
+                          <ErrorMessage name="email" class="error-feedback" />
+                        </div>
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <Field name="password" type="password" class="form-control" placeholder=""/>
+                          <ErrorMessage name="password" class="error-feedback" />
+                        </div>
+                        <div class="form-group">
+                          <label for="phoneNumber">Phone Number</label>
+                          <Field name="phoneNumber" type="text" class="form-control" placeholder="10 digit number. No special characters"/>
+                          <ErrorMessage name="phoneNumber" class="error-feedback" />
+                        </div>
+                        <div class="form-group">
+                          <label for="unitNumber">Unit Number</label>
+                          <Field name="unitNumber" type="text" class="form-control" placeholder="2 - 5 digit number"/>
+                          <ErrorMessage name="unitNumber" class="error-feedback" />
+                        </div>
+                        <div class="form-group">
+                          <label for="role">Role</label>
+                          <Field name="role" type="text" class="form-control" placeholder="Pick one 'User', 'Mod','Admin'" />
+                          <ErrorMessage name="role" class="error-feedback" />
+                        </div>
+
+                          <br>
+                          <p class="mb-5 pb-lg-2" style="color: #393f81;">Problems registering? Contact maintenance for support.</p>
+
+                        </div>
+
+                        <div class="form-group">
+                          <div v-if="message" class="alert alert-danger" role="alert">
+                            {{ message }}
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <button class="btn btn-primary btn-block" :disabled="loading">
+                            <span
+                              v-show="loading"
+                              class="spinner-border spinner-border-sm"
+                            ></span>
+                            Register Account
+                          </button>
+                        </div>
+                      </Form>
+                  </form>
+
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </Form>
-
-      <div
-        v-if="message"
-        class="alert"
-        :class="successful ? 'alert-success' : 'alert-danger'"
-      >
-        {{ message }}
       </div>
     </div>
-  </div>
+  </section>
+
 </template>
 
 <script>

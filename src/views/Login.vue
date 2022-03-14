@@ -1,41 +1,69 @@
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card" 
-      />
-      <Form @submit="handleLogin" :validation-schema="schema">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <Field name="username" type="text" class="form-control" />
-          <ErrorMessage name="username" class="error-feedback" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <Field name="password" type="password" class="form-control" />
-          <ErrorMessage name="password" class="error-feedback" />
-        </div>
+<br><br><br>
+<section class="h-auto w-auto" style="background-color: #4D545D;">
+  <div class="container py-5 h-auto ">
+    <div class="row d-flex justify-content-center h-auto">
+      <div class="col col-xl-6 ">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-2 col-lg-10 d-flex">
+              <div class="card-body p-4 p-lg-5 text-black">
 
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="loading">
-            <span
-              v-show="loading"
-              class="spinner-border spinner-border-sm"
-            ></span>
-            <span>Login</span>
-          </button>
-        </div>
+                <form>
 
-        <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">
-            {{ message }}
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                    <span class="h1 fw-bold mb-0">Logo</span>
+                  </div>
+
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+
+                  <Form @submit="handleLogin" :validation-schema="schema">
+                      <div class="form-group form-outline mb-4">
+                        <label for="username">Username</label>
+                        <Field name="username" type="text" class="form-control" />
+                        <ErrorMessage name="username" class="error-feedback" />
+                      </div>
+                      <div class="form-group form-outline mb-4">
+                        <label for="password">Password</label>
+                        <Field name="password" type="password" class="form-control" />
+                        <ErrorMessage name="password" class="error-feedback" />
+                      </div>
+
+                      <div class="form-group pt-1 ">
+                        <button class="btn btn-dark btn-lg btn-block" :disabled="loading">
+                          <span
+                            v-show="loading"
+                            class="spinner-border spinner-border-sm"
+                          ></span>
+                          <span>Login</span>
+                        </button>
+
+                        <br>
+                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Problems logging in? Contact adminstration for support.</p>
+
+                      </div>
+
+                      <div class="form-group">
+                        <div v-if="message" class="alert alert-danger" role="alert">
+                          {{ message }}
+                        </div>
+                      </div>
+                    </Form>
+                </form>
+
+              </div>
+            </div>
           </div>
         </div>
-      </Form>
+      </div>
     </div>
   </div>
+</section>
+
+
+
+
 </template>
 
 <script>
