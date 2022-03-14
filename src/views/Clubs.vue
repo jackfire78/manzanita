@@ -12,7 +12,7 @@
               <router-link to="/" class="nav-link text-white">Create Club</router-link>
             </a>
 
-
+            <h3 v-if="errorMsg">{{ errorMsg }}</h3>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered">
                 <thead>

@@ -8,7 +8,7 @@ import Register from "./views/Register.vue";
 
 import CreateEvent from "./views/CreateEvent.vue";
 import CreateActivity from "./views/CreateActivity.vue";
-//import CreateClub from "./views/CreateClub.vue";
+import CreateClub from "./views/CreateClub.vue";
 //import CreateMovie from "./views/CreateMovie.vue";
 //import CreateRestaurant from "./views/CreateRestaurant.vue";
 
@@ -32,6 +32,8 @@ const ActivityDetailed = () => import("./views/ActivityDetailed.vue")
 
 //community life Club pages
 const Clubs = () => import("./views/Clubs.vue")
+const EditClub = () => import("./views/EditClub.vue")
+const ClubDetailed = () => import("./views/ClubDetailed.vue")
 
 //community life Movie pages
 const Movies = () => import("./views/Movies.vue")
@@ -86,7 +88,7 @@ const routes = [
     component: BoardUser,
   },
 
-  //community based pages
+  // ------- Community Based Pages -------
 
   //Community Event pages
   {
@@ -135,6 +137,20 @@ const routes = [
     path: "/clubs",
     name: "clubs",
     component: Clubs,
+  },
+  {
+    path: "/clubDetailed",
+    name: "clubDetailed",
+    component: ClubDetailed,
+  },  
+  {
+    path: "/createClub",
+    component: CreateClub,
+  },
+  {
+    path: "/editClub/:id",
+    name: "editClub",
+    component: EditClub,
   },
   
   //Community Life Movie pages
