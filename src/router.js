@@ -16,8 +16,8 @@ import CreateMovie from "./views/CreateMovie.vue";
 const Profile = () => import("./views/Profile.vue")
 
 //account role specific pages
-//const BoardAdmin = () => import("./views/BoardAdmin.vue")
-const ModStaff = () => import("./views/ModBoard.vue")
+const BoardAdmin = () => import("./views/AdminBoard.vue")
+const BoardMod = () => import("./views/ModBoard.vue")
 const BoardUser = () => import("./views/UserBoard.vue")
 
 //community Event pages
@@ -41,6 +41,11 @@ const EditMovie = () => import("./views/EditMovie.vue")
 
 //community life Restaurant pages
 const Restaurants = () => import("./views/Restaurants.vue")
+
+//Admin pages
+const AllUsers = () => import("./views/users.vue")
+const AllWorkers = () => import("./views/workers.vue")
+
 
 const routes = [
   //public pages
@@ -79,16 +84,20 @@ const routes = [
   
   //account role specific pages
   {
-    path: "/mod",
-    name: "moderator",
-    component: ModStaff,
-  },
-  {
     path: "/user",
     name: "user",
     component: BoardUser,
   },
-
+  {
+    path: "/mod",
+    name: "moderator",
+    component: BoardMod,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: BoardAdmin,
+  },
   // ------- Community Based Pages -------
 
   //Community Event pages
@@ -175,6 +184,18 @@ const routes = [
     path: "/restaurants",
     name: "restaurants",
     component: Restaurants,
+  },
+
+  //Admin pages
+  {
+    path: "/allUsers",
+    name: "allUsers",
+    component: AllUsers,
+  },
+  {
+    path: "/allWorkers",
+    name: "allWorkers",
+    component: AllWorkers,
   },
 
 ];
