@@ -18,8 +18,8 @@ const Profile = () => import("./views/Profile.vue")
 const EditProfile = () => import("./views/EditProfile.vue")
 
 //account role specific pages
-//const BoardAdmin = () => import("./views/BoardAdmin.vue")
-const ModStaff = () => import("./views/ModBoard.vue")
+const BoardAdmin = () => import("./views/AdminBoard.vue")
+const BoardMod = () => import("./views/ModBoard.vue")
 const BoardUser = () => import("./views/UserBoard.vue")
 
 //community Event pages
@@ -48,6 +48,11 @@ const Restaurants = () => import("./views/Restaurants.vue")
 const WorkOrders = () => import("./views/WorkOrders.vue")
 const EditWorkOrder = () => import("./views/EditClub.vue")
 //const WorkOrderDetailed = () => import("./views/ClubDetailed.vue")
+
+//Admin pages
+const AllUsers = () => import("./views/users.vue")
+const AllWorkers = () => import("./views/workers.vue")
+
 
 const routes = [
   //public pages
@@ -92,16 +97,20 @@ const routes = [
   
   //account role specific pages
   {
-    path: "/mod",
-    name: "moderator",
-    component: ModStaff,
-  },
-  {
     path: "/user",
     name: "user",
     component: BoardUser,
   },
-
+  {
+    path: "/mod",
+    name: "moderator",
+    component: BoardMod,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: BoardAdmin,
+  },
   // ------- Community Based Pages -------
 
   //Community Event pages
@@ -206,6 +215,17 @@ const routes = [
       component: EditWorkOrder,
     },
 
+    //Admin pages
+    {
+      path: "/allUsers",
+      name: "allUsers",
+      component: AllUsers,
+    },
+    {
+      path: "/allWorkers",
+      name: "allWorkers",
+      component: AllWorkers,
+    },
 
 ];
 
