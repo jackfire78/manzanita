@@ -11,9 +11,11 @@ import CreateActivity from "./views/CreateActivity.vue";
 import CreateClub from "./views/CreateClub.vue";
 import CreateMovie from "./views/CreateMovie.vue";
 //import CreateRestaurant from "./views/CreateRestaurant.vue";
+import CreateWorkOrder from "./views/CreateWorkOrder.vue";
 
 // lazy-loaded
 const Profile = () => import("./views/Profile.vue")
+const EditProfile = () => import("./views/EditProfile.vue")
 
 //account role specific pages
 //const BoardAdmin = () => import("./views/BoardAdmin.vue")
@@ -41,6 +43,11 @@ const EditMovie = () => import("./views/EditMovie.vue")
 
 //community life Restaurant pages
 const Restaurants = () => import("./views/Restaurants.vue")
+
+//maintenance pages
+const WorkOrders = () => import("./views/WorkOrders.vue")
+const EditWorkOrder = () => import("./views/EditClub.vue")
+//const WorkOrderDetailed = () => import("./views/ClubDetailed.vue")
 
 const routes = [
   //public pages
@@ -75,6 +82,12 @@ const routes = [
     name: "profile",
     // lazy-loaded
     component: Profile,
+  },
+  {
+    path: "/editProfile",
+    name: "editProfile",
+    // lazy-loaded
+    component: EditProfile,
   },
   
   //account role specific pages
@@ -176,6 +189,23 @@ const routes = [
     name: "restaurants",
     component: Restaurants,
   },
+
+  //Maintenance Work Orders
+    {
+      path: "/workOrders",
+      name: "workOrders",
+      component: WorkOrders,
+    }, 
+    {
+      path: "/createWorkOrder",
+      component: CreateWorkOrder,
+    },
+    {
+      path: "/editWorkOrder/:id",
+      name: "editWorkOrder",
+      component: EditWorkOrder,
+    },
+
 
 ];
 

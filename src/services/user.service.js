@@ -4,7 +4,7 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/api/test/';
 //service used for accessing data
 class UserService {
-  //does not need a header. Accessible by anyone
+  //Accessible by anyone
   getPublicContent() {
     return axios.get(API_URL + 'all');
   }
@@ -13,6 +13,18 @@ class UserService {
   getMyProfile(id){
     return axios.get(`http://localhost:8080/api/auth/getPersonalInfo/${id}` , { headers: authHeader() })
   }
+  //edit method. Used to edit an already existing account
+  editMyProfile(id, user) {
+    return axios.put(`http://localhost:8080/api/auth/editPersonalInfo/${id}`, { headers: authHeader(),
+      username: user.username,
+      password: user.password,
+      email: user.email,
+      phoneNumber: user.phoneNumber,        
+      unitNumber: user.unitNumber,
+      role: user.role
+    });
+  }
+
   //any requests of authorized resources must contain an HTTP header 
   //with the help of authHeader() function
   getUserBoard() {

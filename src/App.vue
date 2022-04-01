@@ -35,6 +35,7 @@
         <li v-if="currentUser" class="nav-item"><router-link to="/clubs" class="nav-link">Clubs</router-link></li>
         <li v-if="currentUser" class="nav-item"><router-link to="/movies" class="nav-link">Movies</router-link></li>
         <li v-if="currentUser" class="nav-item"><router-link to="/restaurants" class="nav-link">Restaurants</router-link></li>
+        <li v-if="currentUser" class="nav-item"><router-link to="/workOrders" class="nav-link">Work Orders</router-link></li>
       </div>
 
       <!-- Account Creation and Login/Logout Actions -->

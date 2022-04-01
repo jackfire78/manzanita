@@ -51,7 +51,7 @@
                       <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
                           {{ message }}
                       </div>
-                  <!-- <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div> -->
+                   <div class="mt-5 text-center"><a class="btn btn-primary profile-button" type="button" href="editProfile">Edit Profile</a></div>
               </div>
           </div>
       </div>
