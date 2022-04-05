@@ -2,27 +2,37 @@
 <br><br><br><br><br>
   <div class="col-md-12">
     <div class="card card-container">
-      <Form @submit="createActivity" :validation-schema="schema">
+      <Form @submit="createWorkOrder" :validation-schema="schema">
         <div v-if="!successful">
               <div class="form-group">
-                <label for="activityName">Activity Name</label>
-                <Field name="activityName" type="text" class="form-control" />
-                <ErrorMessage name="activityName" class="error-feedback" />
+                <label for="residentName">Resident Name</label>
+                <Field name="residentName" type="text" class="form-control" />
+                <ErrorMessage name="residentName" class="error-feedback" />
               </div>
               <div class="form-group">
-                <label for="activityDate">Activity Date</label>
-                <Field name="activityDate" type="Date" class="form-control" />
-                <ErrorMessage name="activityDate" class="error-feedback" />
+                <label for="residentUnit">Resident Unit</label>
+                <Field name="residentUnit" type="text" class="form-control" />
+                <ErrorMessage name="residentUnit" class="error-feedback" />
               </div>
               <div class="form-group">
-                <label for="activityDescription">Activity Description</label>
-                <Field name="activityDescription" type="text" class="form-control" />
-                <ErrorMessage name="activityDescription" class="error-feedback" />
+                <label for="residentPhoneNum">Resident Phone #</label>
+                <Field name="residentPhoneNum" type="text" class="form-control" />
+                <ErrorMessage name="residentPhoneNum" class="error-feedback" />
               </div>
               <div class="form-group">
-                <label for="activityPrice">Activity Price</label>
-                <Field name="activityPrice" type="number" class="form-control" />
-                <ErrorMessage name="activityPrice" class="error-feedback" />
+                <label for="issue">Issue</label>
+                <Field name="issue" type="text" class="form-control" />
+                <ErrorMessage name="issue" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="severity">Severity</label>
+                <Field name="severity" type="text" class="form-control" />
+                <ErrorMessage name="severity" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="status">Status</label>
+                <Field name="status" type="text" class="form-control" />
+                <ErrorMessage name="status" class="error-feedback" />
               </div>
 
           <div class="form-group">
@@ -31,7 +41,7 @@
                 v-show="loading"
                 class="spinner-border spinner-border-sm"
               ></span>
-              Create Activity
+              Create Work Order
             </button>
           </div>
         </div>
@@ -49,12 +59,12 @@
 </template>
 
 <script>
-import ActivityService from "../services/commLifeActivity.service";
+import MaintenanceService from "../services/maintenance.service";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 //use yup to handle input validation before user submission
 export default {
-  name: "createActivity",
+  name: "createWorkOrder",
   components: {
     Form,
     Field,
@@ -62,22 +72,35 @@ export default {
   },
   data() {
     const schema = yup.object().shape({     
-      activityName: yup
+      residentName: yup
         .string()
-        .required("Activity Name is required!")
+        .required("Resident Name is required!")
         .min(3, "Must be at least 3 characters!")
         .max(20, "Must be maximum 20 characters!"),
-      activityDate: yup
-        .date()
-        .required("Date is required!"),
-      activityDescription: yup
+      residentUnit: yup
         .string()
-        .required("Description is required!")
-        .min(6, "Must be at least 6 characters!")
-        .max(500, "Must be maximum 500 characters!"),
-      activityPrice: yup
-        .number()
-        .required("Price is required!"),
+        .required("Unit # is required!")
+        .min(1, "Must be at least 1 number!")
+        .max(5, "Must be at most 5 numbers!"),
+      residentPhoneNum: yup
+        .string()
+        .required("Phone # is required!")
+        .min(10, "Must be 10 Numbers!")
+        .max(10, "Must be 10 Numbers!"),
+      issue: yup
+        .string()
+        .required("Issue is required!")
+        .min(5, "Please write in detail about the issue!"),
+      severity: yup
+        .string()
+        .required("Severity is required!")
+        .min(3, "Must be at least 3 characters!")
+        .max(20, "Must be maximum 20 characters!"),
+      status: yup
+        .string()
+        .required("Status is required!")
+        .min(3, "Must be at least 3 characters!")
+        .max(20, "Must be maximum 20 characters!"),
     });
 
     return {
@@ -87,19 +110,19 @@ export default {
       schema,
     };
   },
-  methods: {        //error message if anything goes wrong, otherwise submit activity and return success message. 
-    createActivity(activity) {
+  methods: {        //error message if anything goes wrong, otherwise submit work order and return success message. 
+    createWorkOrder(workOrder) {
       this.message = "";
       this.successful = false;
       this.loading = true;
-      console.log(activity);
+      console.log(workOrder);
       
-      ActivityService.createCommunityLifeActivity(activity)
+      MaintenanceService.createWorkOrder(workOrder)
         .then((data) => {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
-          this.$router.push('/activities');
+          this.$router.push('/workOrders');
         },
         (error) => {
           this.message =

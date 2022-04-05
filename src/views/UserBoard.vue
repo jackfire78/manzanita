@@ -56,7 +56,7 @@
 
       <!-- Gallery item -->
       <div class="col-xl-3 mx-auto">
-        <div class="bg-white rounded shadow-sm"><a href="/movies"><img src="https://www.pngitem.com/pimgs/m/640-6409978_restaurants-homepage-icon-circle-hd-png-download.png" alt="" class="img-fluid card-img-top"></a>
+        <div class="bg-white rounded shadow-sm"><a href="/restaurants"><img src="https://www.pngitem.com/pimgs/m/640-6409978_restaurants-homepage-icon-circle-hd-png-download.png" alt="" class="img-fluid card-img-top"></a>
           <div class="p-4">
             <h5> <a href="#" class="text-dark">Restaurants</a></h5>
           </div>

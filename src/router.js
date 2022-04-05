@@ -46,7 +46,7 @@ const Restaurants = () => import("./views/Restaurants.vue")
 
 //maintenance pages
 const WorkOrders = () => import("./views/WorkOrders.vue")
-const EditWorkOrder = () => import("./views/EditClub.vue")
+const EditWorkOrder = () => import("./views/EditWorkOrder.vue")
 //const WorkOrderDetailed = () => import("./views/ClubDetailed.vue")
 
 //Admin pages

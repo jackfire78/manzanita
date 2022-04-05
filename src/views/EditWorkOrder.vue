@@ -3,31 +3,41 @@
     <div class="card card-container">
       <br><br>
 
-      <h3 class="mx-auto"> Editing "{{currentActivity.activityName}}"</h3>
+      <h3 class="mx-auto"> Editing "{{currentWorkOrder.residentName}} Work Order"</h3>
       <br /><br /><br />
       <div class="col-md-12">
         <div class="card card-container">
-          <Form @submit="editActivity" :validation-schema="schema">
+          <Form @submit="editWorkOrder" :validation-schema="schema">
             <div v-if="!successful">
               <div class="form-group">
-                <label for="activityName">Activity Name</label>
-                <Field name="activityName" type="text" class="form-control" v-model="currentActivity.activityName"/>
-                <ErrorMessage name="activityName" class="error-feedback" />
+                <label for="residentName">Resident Name</label>
+                <Field name="residentName" type="text" class="form-control" v-model="currentWorkOrder.residentName"/>
+                <ErrorMessage name="residentName" class="error-feedback" />
               </div>
               <div class="form-group">
-                <label for="activityDate">Activity Date</label>
-                <Field name="activityDate" type="Date" class="form-control" v-model="currentActivity.activityDate"/>
-                <ErrorMessage name="activityDate" class="error-feedback" />
+                <label for="residentUnit">Resident Unit</label>
+                <Field name="residentUnit" type="text" class="form-control" v-model="currentWorkOrder.residentUnit"/>
+                <ErrorMessage name="residentUnit" class="error-feedback" />
               </div>
               <div class="form-group">
-                <label for="activityDescription">Activity Description</label>
-                <Field name="activityDescription" type="text" class="form-control" v-model="currentActivity.activityDescription"/>
-                <ErrorMessage name="activityDescription" class="error-feedback" />
+                <label for="residentPhoneNum">Resident Phone #</label>
+                <Field name="residentPhoneNum" type="text" class="form-control" v-model="currentWorkOrder.residentPhoneNum"/>
+                <ErrorMessage name="residentPhoneNum" class="error-feedback" />
               </div>
               <div class="form-group">
-                <label for="activityPrice">Activity Price</label>
-                <Field name="activityPrice" type="number" class="form-control" v-model="currentActivity.activityPrice"/>
-                <ErrorMessage name="activityPrice" class="error-feedback" />
+                <label for="issue">Issue</label>
+                <Field name="issue" type="text" class="form-control" v-model="currentWorkOrder.issue"/>
+                <ErrorMessage name="issue" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="severity">Severity</label>
+                <Field name="severity" type="text" class="form-control" v-model="currentWorkOrder.severity"/>
+                <ErrorMessage name="severity" class="error-feedback" />
+              </div>
+              <div class="form-group">
+                <label for="status">Status</label>
+                <Field name="status" type="text" class="form-control" v-model="currentWorkOrder.status"/>
+                <ErrorMessage name="status" class="error-feedback" />
               </div>
 
               <div class="form-group">
@@ -54,7 +64,7 @@
 </template>
 
 <script>
-import ActivityService from "../services/commLifeActivity.service";
+import MaintenanceService from "../services/maintenance.service";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 //use yup to handle input validation before user submission
@@ -67,26 +77,39 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      activityName: yup
+      residentName: yup
         .string()
-        .required("Activity Name is required!")
+        .required("Resident Name is required!")
         .min(3, "Must be at least 3 characters!")
         .max(20, "Must be maximum 20 characters!"),
-      activityDate: yup
-        .date()
-        .required("Date is required!"),
-      activityDescription: yup
+      residentUnit: yup
         .string()
-        .required("Description is required!")
-        .min(6, "Must be at least 6 characters!")
-        .max(500, "Must be maximum 500 characters!"),
-      activityPrice: yup
-        .number()
-        .required("Price is required!"),
+        .required("Unit # is required!")
+        .min(1, "Must be at least 1 number!")
+        .max(5, "Must be at most 5 numbers!"),
+      residentPhoneNum: yup
+        .string()
+        .required("Phone # is required!")
+        .min(10, "Must be 10 Numbers!")
+        .max(10, "Must be 10 Numbers!"),
+      issue: yup
+        .string()
+        .required("Issue is required!")
+        .min(5, "Please write in detail about the issue!"),
+      severity: yup
+        .string()
+        .required("Severity is required!")
+        .min(3, "Must be at least 3 characters!")
+        .max(20, "Must be maximum 20 characters!"),
+      status: yup
+        .string()
+        .required("Status is required!")
+        .min(3, "Must be at least 3 characters!")
+        .max(20, "Must be maximum 20 characters!"),
     });
 
     return {
-      currentActivity: [],
+      currentWorkOrder: [],
       successful: false,
       loading: false,
       message: "",
@@ -95,21 +118,21 @@ export default {
   },
   methods: {
     //error message if anything goes wrong, otherwise submit activity and return success message.
-    getActivity(activityID) {
-      ActivityService.getCommunityLifeActivity(activityID)
+    getWorkOrder(workOrderId) {
+      MaintenanceService.getWorkOrder(workOrderId)
       .then(response => {
-          this.currentActivity = response.data;
-          console.log(this.currentActivity);
+          this.currentWorkOrder = response.data;
+          console.log(this.currentWorkOrder);
         })
         .catch(e => {
           console.log(e);
         });
     },
-    editActivity(currentActivity) {
+    editWorkOrder(currentWorkOrder) {
       this.message = "";
       this.successful = false;
       this.loading = true;
-      ActivityService.editCommunityLifeActivity(this.$route.params.id, currentActivity)
+      MaintenanceService.editWorkOrder(this.$route.params.id, currentWorkOrder)
         .then((data) => {
           this.message = data.message;
           this.successful = true;
@@ -130,7 +153,7 @@ export default {
     },
   },
   mounted() {
-    this.getActivity(this.$route.params.id);
+    this.getWorkOrder(this.$route.params.id);
   }
 };
 </script>

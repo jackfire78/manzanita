@@ -17,7 +17,6 @@ class UserService {
   editMyProfile(id, user) {
     return axios.put(`http://localhost:8080/api/auth/editPersonalInfo/${id}`, { headers: authHeader(),
       username: user.username,
-      password: user.password,
       email: user.email,
       phoneNumber: user.phoneNumber,        
       unitNumber: user.unitNumber,

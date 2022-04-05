@@ -8,7 +8,7 @@
 
   <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
-      <div class="col-md-3 border-right">
+      <div class="col-md-4 border-right">
         <!-- <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img class="rounded-circle mt-5 img-thumbnail" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">
                   <span class="font-weight-bold">Jack</span>
@@ -16,78 +16,48 @@
               </div> -->
       </div>
       <div class="col-md-5 border-right">
-        <div class="p-3 py-5">
+        <div class="p-4 py-5">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <!-- <h4 class="text-right">Profile Settings</h4> -->
           </div>
-          <div class="row mt-3">
-            <Form @submit="editProfile" :validation-schema="schema">
+          <div class="row mt-2">
+            <Form @submit="editMyProfile" :validation-schema="schema">
               <div v-if="!successful">
-                <div class="col-md-12">
+                <div class="col-md-14">
                   <label for="username">Username</label>
-                  <Field
-                    name="username"
-                    type="text"
-                    class="form-control"
-                    v-model="userInfo.username"
-                  />
+                  <Field name="username" type="text" class="form-control" v-model="userInfo.username"/>
                   <ErrorMessage name="username" class="error-feedback" />
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-14">
                   <label for="email">Email</label>
-                  <Field
-                    name="email"
-                    type="email"
-                    class="form-control"
-                    v-model="userInfo.email"
-                  />
+                  <Field name="email" type="email" class="form-control" v-model="userInfo.email"/>
                   <ErrorMessage name="email" class="error-feedback" />
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-14">
                   <label for="phoneNumber">Phone Number</label>
-                  <Field
-                    name="phoneNumber"
-                    type="number"
-                    class="form-control"
-                    v-model="userInfo.phoneNumber"
-                  />
+                  <Field name="phoneNumber" type="number" class="form-control" v-model="userInfo.phoneNumber"/>
                   <ErrorMessage name="phoneNumber" class="error-feedback" />
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-14">
                   <label for="unitNumber">Unit Number</label>
-                  <Field
-                    name="unitNumber"
-                    type="number"
-                    class="form-control"
-                    v-model="userInfo.unitNumber"
-                  />
+                  <Field name="unitNumber" type="number" class="form-control" v-model="userInfo.unitNumber"/>
                   <ErrorMessage name="unitNumber" class="error-feedback" />
                 </div>
-                <div class="col-md-12">
-                  <br />
-                  <strong>Authorities:</strong>
-                  <ul>
-                    <li v-for="role in currentUser.roles" :key="role">
-                      {{ role }}
-                    </li>
-                  </ul>
-                </div>
+                <div class="col-md-14">
+                  <label for="role">Authorities</label>
+                  <Field name="role" type="text" class="form-control" v-model="userInfo.role"/>
+                  <ErrorMessage name="role" class="error-feedback" />
+                </div><br> 
               </div>
-              <div class="form-group">
+
+              <div class="form-group col-md-13">
                 <button class="btn btn-primary btn-block" :disabled="loading">
-                  <span
-                    v-show="loading"
-                    class="spinner-border spinner-border-sm"
-                  >
-                  </span>
-                  Edit My Profile
+                  <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                  Save Edit
                 </button>
               </div>
-              <div
-                v-if="message"
-                class="alert"
-                :class="successful ? 'alert-success' : 'alert-danger'"
-              >
+            
+              <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
                 {{ message }}
               </div>
             </Form>
@@ -155,8 +125,8 @@ export default {
         });
     },
     //error message if anything goes wrong, otherwise update current logged in users personal info
-    editUser(id, user) {
-      UserService.editMyProfile(id, user)
+    editMyProfile(userInfo) {
+      UserService.editMyProfile(this.currentUser.id, userInfo)
         .then((response) => {
           this.userInfo = response.data;
           console.log(this.$id);

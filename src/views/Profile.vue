@@ -18,7 +18,6 @@
           <div class="col-md-5 border-right">
               <div class="p-3 py-5">
                   <div class="d-flex justify-content-between align-items-center mb-3">
-                      <!-- <h4 class="text-right">Profile Settings</h4> -->
                   </div>
                     <div class="row mt-3">
                       <div class="col-md-12">
@@ -36,16 +35,15 @@
                         <Field name="phoneNumber" type="number" class="form-control" v-model="userInfo.phoneNumber"/>
                         <ErrorMessage name="phoneNumber" class="error-feedback" />
                       </div>
-                      <div class="col-md-12">
+                      <div v-if="!hasPrivilege" class="col-md-12">
                         <label for="unitNumber">Unit Number</label>
                         <Field name="unitNumber" type="number" class="form-control" v-model="userInfo.unitNumber"/>
                         <ErrorMessage name="unitNumber" class="error-feedback" />
                       </div> 
-                      <div class="col-md-12"><br>
-                        <strong>Authorities:</strong>
-                          <ul>
-                            <li v-for="role in currentUser.roles" :key="role">{{role}}</li>
-                          </ul> 
+                      <div class="col-md-12">
+                        <label for="role">Authorities</label>
+                        <Field name="role" type="text" class="form-control" v-model="userInfo.role"/>
+                        <ErrorMessage name="role" class="error-feedback" />
                       </div>                                                        
                   </div>
                       <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
@@ -68,11 +66,6 @@ export default {
   components: {
     Field,
     ErrorMessage,
-  },
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    }
   },
   data() {
     const schema = yup.object().shape({
@@ -118,6 +111,22 @@ export default {
   },
   mounted() {
     this.getUser(this.currentUser.id);
+  
+  },  //return user if one is logged in
+  computed: {
+    currentUser() {          //if parameters are met, then there is a current user logged in
+      return this.$store.state.auth.user;
+    },
+    hasPrivilege() {        //if parameters are met, then current user is an admin
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_ADMIN');
+      }
+      else if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_MODERATOR');
+      }
+
+      return false;
+    },
   }
 };
 </script>

@@ -8,7 +8,7 @@
       <div class="col-lg-10 mx-auto">
         <div class="card rounded shadow border-0">
           <div class="card-body p-5 bg-white rounded">
-            <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
+            <a v-if="hasPrivilege" class="btn btn-info btn-sm" role="button">
               <router-link to="/createWorkOrder" class="nav-link text-white">Create Work Order</router-link>
             </a>
 
@@ -17,24 +17,24 @@
               <table style="width:100%" class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th>Activity Name</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Price</th>
+                    <th>Resident Name</th>
+                    <th>Resident Unit</th>
+                    <th>Severity</th>
+                    <th>Status</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
 
                 <tbody>
 
-                  <tr v-for="activity in activities" :key="activity.id">
-                    <td> {{ activity.activityName }} </td>
-                    <td> {{ activity.activityDate }} </td>
-                    <td> {{ activity.activityDescription }} </td>
-                    <td>${{ activity.activityPrice }} </td>
+                  <tr v-for="workOrder in workOrders" :key="workOrder.id">
+                    <td> {{ workOrder.residentName }} </td>
+                    <td> {{ workOrder.residentUnit }} </td>
+                    <td> {{ workOrder.severity }} </td>
+                    <td> {{ workOrder.status }} </td>
                     <td>
-                      <button v-if="currentUser" class="btn btn-success" @click="editActivity(activity.id)"> Edit </button>
-                      <button v-if="currentUser" class="btn btn-danger" @click="deleteActivity(activity.id)"> Delete </button>
+                      <button v-if="currentUser" class="btn btn-success" @click="editWorkOrder(workOrder.id)"> Edit </button>
+                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteWorkOrder(workOrder.id)"> Delete </button>
                     </td>
                   </tr>
 
@@ -51,24 +51,24 @@
 </template>
 
 <script>
-import ActivityService from "../services/commLifeActivity.service";
+import MaintenanceService from "../services/maintenance.service";
 
 export default {
-  name: "Activities",
+  name: "WorkOrders",
   data() {
     return {
-      activities: [],
-      numberOfActivities:0,
+      workOrders: [],
+      numberOfWorkOrders:0,
       errorMsg: '',
     };
   },
   methods: {
-    getActivities(){
-      ActivityService.getAllActivities().then(response => {
-        this.activities = response.data;
+    getWorkOrders(){
+      MaintenanceService.getWorkOrders().then(response => {
+        this.workOrders = response.data;
         console.log(response);
-        this.numberOfActivities= this.activities.count;
-        console.log(this.numberOfActivities);
+        this.numberOfWorkOrders= this.workOrders.count;
+        console.log(this.numberOfWorkOrders);
 
       })
       .catch((error) => {
@@ -76,16 +76,28 @@ export default {
         this.errorMsg = 'Error retrieving data';
       })
     },
-    editActivity(activityId){
-        this.$router.push('/editActivity/'+activityId)
+    getMyWorkOrders(){
+      MaintenanceService.getMyWorkOrders().then(response => {
+        this.workOrders = response.data;
+        console.log(response);
+        this.numberOfWorkOrders= this.workOrders.count;
+        console.log(this.numberOfWorkOrders);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error retrieving data';
+      })
+    },
+    editWorkOrder(workOrderId){
+        this.$router.push('/editWorkOrder/'+workOrderId)
       
       .catch((error) => {
         console.log(error);
         this.errorMsg = 'Error retrieving data';
       })      
     },
-    deleteActivity(activityId){
-      ActivityService.deleteCommunityLifeActivity(activityId).then(response => {
+    deleteWorkOrder(workOrderId){
+      MaintenanceService.deleteWorkOrder(workOrderId).then(response => {
         console.log(response);
       })
       .catch((error) => {
@@ -96,7 +108,11 @@ export default {
     },
   },
   mounted() {
-    this.getActivities();
+    if(this.hasPrivilege){
+      this.getWorkOrders();
+    }else if(this.currentUser){
+      this.getMyWorkOrders();
+    }
   },
   //return user if one is logged in
   computed: {
