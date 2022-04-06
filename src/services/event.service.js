@@ -1,7 +1,9 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/communityEvents/';
+//const API_URL = 'http://localhost:8080/api/communityEvents/';
+const API_URL = 'jackfire78/manzanitaResidentualCommunities/api/communityEvents/';
+
 //service used for accessing events data
 class EventService {
 

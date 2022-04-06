@@ -1,7 +1,9 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/lifeMovie/';
+//const API_URL = 'http://localhost:8080/api/lifeMovie/';
+const API_URL = 'jackfire78/manzanitaResidentualCommunities/api/lifeMovie/';
+
 //service used for accessing movie data
 class MovieService {
 

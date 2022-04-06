@@ -1,7 +1,9 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/lifeActivity/';
+//const API_URL = 'http://localhost:8080/api/lifeActivity/';
+const API_URL = 'jackfire78/manzanitaResidentualCommunities/api/lifeActivity/';
+
 //service used for accessing activity data
 class ActivityService {
 
