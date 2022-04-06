@@ -76,6 +76,7 @@ export default {
         this.errorMsg = 'Error retrieving data';
       })
     },
+    //get only work orders of currently logged in user
     getMyWorkOrders(){
       MaintenanceService.getMyWorkOrders().then(response => {
         this.workOrders = response.data;
