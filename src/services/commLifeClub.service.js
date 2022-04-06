@@ -1,9 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-//const API_URL = 'http://localhost:8080/api/lifeClub/';
-const API_URL = 'jackfire78/manzanitaResidentualCommunities/api/lifeClub/';
-
+const API_URL = 'http://localhost:8080/api/lifeClub/';
 //service used for accessing club data
 class ClubService {
 
