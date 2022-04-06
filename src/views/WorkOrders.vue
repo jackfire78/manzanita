@@ -63,6 +63,7 @@ export default {
     };
   },
   methods: {
+    //get all work orders
     getWorkOrders(){
       MaintenanceService.getWorkOrders().then(response => {
         this.workOrders = response.data;
