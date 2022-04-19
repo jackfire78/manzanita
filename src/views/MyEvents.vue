@@ -2,7 +2,7 @@
   <div class="bootstrap_datatables">
   <div class="container py-5">
     <header class="text-center text-black">
-      <h1 class="display-4">Events</h1>
+      <h1 class="display-4">My Events</h1>
     </header>
     <div class="row py-5">
       <div class="col-lg-10 mx-auto">
@@ -12,7 +12,10 @@
               <router-link to="/createEvent" class="nav-link text-white">Create Event</router-link>
             </a>
             <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
-              <router-link to="/myEvents" class="nav-link text-white">My Events</router-link>
+              <router-link to="/myEvents" class="nav-link text-white">My Events</router-link>   
+            </a>
+            <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
+              <router-link to="/events" class="nav-link text-white">All Events</router-link>
             </a>
             <h3 v-if="errorMsg">{{ errorMsg }}</h3>
             <div class="table-responsive">
@@ -20,9 +23,6 @@
                 <thead>
                   <tr>
                     <th>Event Name</th>
-                    <th>Price</th>
-                    <th>Date</th>
-                    <th>Presenters</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -31,13 +31,9 @@
                   
                   <tr v-for="event in events" :key="event.id">
                     <td> {{ event.eventName }} </td>
-                    <td>${{ event.eventPrice }} </td>
-                    <td> {{ event.eventDate }} </td>
-                    <td> {{ event.eventPresenters }} </td>
                     <td>
-                      <button v-if="currentUser" class="btn btn-success btn-sm" @click="joinEvent(event.id)"> Join </button>
-                      <button v-if="hasPrivilege" class="btn btn-primary btn-sm" @click="editEvent(event.id)"> Edit </button>
-                      <button v-if="hasPrivilege" class="btn btn-danger btn-sm" @click="deleteEvent(event.id)"> Delete </button>
+                      <button v-if="currentUser" class="btn btn-success btn-sm" @click="leaveEvent(event.id)"> Leave </button>
+
                     </td>
                   </tr>
 
@@ -67,7 +63,7 @@ export default {
   },
   methods: {
     getEvents(){
-      EventService.getAllEvents().then(response => {
+      EventService.getMyCommunityEvents(this.currentUser.id).then(response => {
         this.events = response.data;
         console.log(response);
         this.numberOfEvents= this.events.count;
@@ -79,33 +75,16 @@ export default {
         this.errorMsg = 'Error retrieving events';
       })
     },
-    editEvent(eventId){
-        this.$router.push('/editEvent/'+eventId)
-      
-      .catch((error) => {
-        console.log(error);
-        this.errorMsg = 'Error editing event';
-      })      
-    },
-    joinEvent(eventId){
-      EventService.joinCommunityEvent(eventId, this.currentUser.id).then(response => {
+    leaveEvent(eventId){
+      EventService.leaveCommunityEvent(eventId).then(response => {
+        this.events = response.data;
         console.log(response);
+        this.$router.push('/events')
       })
       .catch((error) => {
         console.log(error);
-        this.errorMsg = 'Error joining event';
+        this.errorMsg = 'Error retrieving events';
       })
-      //this.$router.go()
-    },
-    deleteEvent(eventId){
-      EventService.deleteCommunityEvent(eventId).then(response => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-        this.errorMsg = 'Error deleting events';
-      })
-      this.$router.go()
     },
   },
   mounted() {

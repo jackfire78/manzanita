@@ -29,6 +29,11 @@ class EventService {
     return axios.get(API_URL + `getCommunityEvent/${eventId}` , { headers: authHeader() });
   }
 
+  //retrieve logged in user's community events
+  getMyCommunityEvents(userId) {
+    return axios.get(API_URL + `myCommunityEvents/${userId}` , { headers: authHeader() });
+  }
+
   //edit an event
   editCommunityEvent(eventId, event) {
     return axios.put(API_URL + `editCommunityEvent/${eventId}`, { headers: authHeader(),
@@ -42,10 +47,31 @@ class EventService {
     .catch(error => {console.log(error)});     
   }
 
-  //delete a community event
-  deleteCommunityEvent(eventID) {
-    return axios.delete(API_URL + 'deleteCommunityEvent/' + eventID , { headers: authHeader() });
-  }
+    //join an event
+    joinCommunityEvent(eventId, userId) {
+      console.log(userId)
+      return axios.put(API_URL + `joinCommunityEvent/${eventId}`, {
+        id: userId,
+        // username: '',
+        // email: '',
+        // password: '',
+        // phoneNumber: '',
+        // unitNumber: '',
+        // role: ''
+      } ,{ headers: authHeader()
+
+      })
+      .catch(error => {console.log(error)});     
+    }
+
+    //delete a community event
+    leaveCommunityEvent(eventID) {
+      return axios.delete(API_URL + 'leaveCommunityEvent/' + eventID , { headers: authHeader() });
+    }
+    //delete a community event
+    deleteCommunityEvent(eventID) {
+      return axios.delete(API_URL + 'deleteCommunityEvent/' + eventID , { headers: authHeader() });
+    }
 
 }
 

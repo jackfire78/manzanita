@@ -24,6 +24,7 @@ const BoardUser = () => import("./views/UserBoard.vue")
 
 //community Event pages
 const Events = () => import("./views/Events.vue")
+const MyEvents = () => import("./views/MyEvents.vue")
 const EditEvent = () => import("./views/EditEvent.vue")
 const EventDetailed = () => import("./views/EventDetailed.vue")
 
@@ -133,6 +134,11 @@ const routes = [
     name: "editEvent",
     component: EditEvent,
   },  
+  {
+    path: "/myEvents/",
+    name: "myEvent",
+    component: MyEvents,
+  }, 
 
   //Community Life Activity pages
   {
