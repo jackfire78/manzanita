@@ -11,7 +11,12 @@
             <a v-if="hasPrivilege" class="btn btn-info btn-sm" role="button">
               <router-link to="/createActivity" class="nav-link text-white">Create Activity</router-link>
             </a>
-
+            <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
+              <router-link to="/activities" class="nav-link text-white">All Activities</router-link>   
+            </a>
+            <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
+              <router-link to="/myActivities" class="nav-link text-white">Activities I'm Attending</router-link>
+            </a>
             <h3 v-if="errorMsg">{{ errorMsg }}</h3>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered">
@@ -33,7 +38,7 @@
                     <td> {{ activity.activityDescription }} </td>
                     <td>${{ activity.activityPrice }} </td>
                     <td>
-                      <button v-if="currentUser" class="btn btn-success" @click="joinActivity(activity.id)"> Join </button>
+                      <button v-if="currentUser" class="btn btn-success" @click="attendActivity(activity.id)"> Attend </button>
                       <button v-if="hasPrivilege" class="btn btn-primary" @click="editActivity(activity.id)"> Edit </button>
                       <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteActivity(activity.id)"> Delete </button>
                     </td>
@@ -84,6 +89,16 @@ export default {
         console.log(error);
         this.errorMsg = 'Error retrieving data';
       })      
+    },
+    attendActivity(activityId){
+      ActivityService.attendCommunityLifeActivity(activityId, this.currentUser.id).then(response => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error joining event';
+      })
+      //this.$router.go()
     },
     deleteActivity(activityId){
       ActivityService.deleteCommunityLifeActivity(activityId).then(response => {

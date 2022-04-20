@@ -24,6 +24,11 @@ class ClubService {
     return axios.get(API_URL + `getComLifeClub/${clubId}` , { headers: authHeader() })
   }
 
+  //retrieve a single community life club
+  getMyCommunityLifeClubs(clubId) {
+    return axios.get(API_URL + `getMyComLifeClub/${clubId}` , { headers: authHeader() })
+  }
+
   //edit an club
   editCommunityLifeClub(clubId, CLifeClub) {
     return axios.put(API_URL + `editComLifeClub/${clubId}`, { headers: authHeader(),
@@ -31,6 +36,29 @@ class ClubService {
       clubDescription: CLifeClub.clubDescription,
     });
   }
+
+  //join a club
+  joinCommunityLifeClub(clubId, userId) {
+    //console.log(userId)
+    return axios.put(API_URL + `joinCommunityLifeClub/${clubId}`, {
+      id: userId,
+      // username: '',
+      // email: '',
+      // password: '',
+      // phoneNumber: '',
+      // unitNumber: '',
+      // role: ''
+    } ,{ headers: authHeader()
+  
+    })
+    .catch(error => {console.log(error)});     
+  }
+  
+  //delete a community life club
+  leaveCommunityLifeClub(clubId) {
+    return axios.delete(API_URL + 'leaveCommunityLifeClub/' + clubId , { headers: authHeader() });
+  }
+
   //delete a community life club
   deleteCommunityLifeClub(clubId) {
     return axios.delete(API_URL + `deleteComLifeClub/${clubId}` , { headers: authHeader() });

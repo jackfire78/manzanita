@@ -16,6 +16,7 @@ import CreateWorkOrder from "./views/CreateWorkOrder.vue";
 // lazy-loaded
 const Profile = () => import("./views/Profile.vue")
 const EditProfile = () => import("./views/EditProfile.vue")
+const EditAccount = () => import("./views/EditAccount.vue")
 
 //account role specific pages
 const BoardAdmin = () => import("./views/AdminBoard.vue")
@@ -30,16 +31,19 @@ const EventDetailed = () => import("./views/EventDetailed.vue")
 
 //community life Activity pages
 const Activities = () => import("./views/Activities.vue")
+const MyActivities = () => import("./views/MyActivities.vue")
 const EditActivity = () => import("./views/EditActivity.vue")
 const ActivityDetailed = () => import("./views/ActivityDetailed.vue")
 
 //community life Club pages
 const Clubs = () => import("./views/Clubs.vue")
+const JoinedClubs = () => import("./views/JoinedClubs.vue")
 const EditClub = () => import("./views/EditClub.vue")
 const ClubDetailed = () => import("./views/ClubDetailed.vue")
 
 //community life Movie pages
 const Movies = () => import("./views/Movies.vue")
+const MyMovies = () => import("./views/MyMovies.vue")
 const EditMovie = () => import("./views/EditMovie.vue")
 
 //community life Restaurant pages
@@ -94,6 +98,12 @@ const routes = [
     name: "editProfile",
     // lazy-loaded
     component: EditProfile,
+  },
+  {
+    path: "/editAccount",
+    name: "editAccount",
+    // lazy-loaded
+    component: EditAccount,
   },
   
   //account role specific pages
@@ -160,6 +170,11 @@ const routes = [
     name: "editActivity",
     component: EditActivity,
   },
+  {
+    path: "/myActivities/",
+    name: "myActivities",
+    component: MyActivities,
+  }, 
 
   //Community Life Club pages
   {
@@ -181,6 +196,11 @@ const routes = [
     name: "editClub",
     component: EditClub,
   },
+  {
+    path: "/joinedClubs/",
+    name: "joinedClubs",
+    component: JoinedClubs,
+  }, 
   
   //Community Life Movie pages
   {
@@ -197,6 +217,11 @@ const routes = [
     name: "editMovie",
     component: EditMovie,
   },
+  {
+    path: "/myMovies/",
+    name: "myMovies",
+    component: MyMovies,
+  }, 
 
   //Community Life Restaurant pages
   {

@@ -23,17 +23,18 @@
                 </thead>
 
                 <tbody>
-                  <tr v-for="user in users" :key="user.id">
-                    <td> {{ user.username }} </td>
-                    <td> {{ user.phoneNumber }} </td>
-                    <td> {{ user.email }} </td>
-                    <td> {{ user.roles }} </td>
+                  <tr v-for="worker in workers" :key="worker.id">
+                    <td> {{ worker.username }} </td>
+                    <td> {{ worker.phoneNumber }} </td>
+                    <td> {{ worker.email }} </td>
+                    <td> {{ worker.role }} </td>
                     <td>
-                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editAccount(user.id)"> Edit </button>
-                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteAccount(user.id)"> Delete </button>
+                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editAccount(worker.id)"> Edit </button>
+                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteAccount(worker.id)"> Delete </button>
                     </td>
                   </tr>
                 </tbody>
+                
 
               </table>
             </div>

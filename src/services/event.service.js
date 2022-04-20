@@ -29,7 +29,7 @@ class EventService {
     return axios.get(API_URL + `getCommunityEvent/${eventId}` , { headers: authHeader() });
   }
 
-  //retrieve logged in user's community events
+  //retrieve logged in user's community events they are joining
   getMyCommunityEvents(userId) {
     return axios.get(API_URL + `myCommunityEvents/${userId}` , { headers: authHeader() });
   }
@@ -49,7 +49,7 @@ class EventService {
 
     //join an event
     joinCommunityEvent(eventId, userId) {
-      console.log(userId)
+      //console.log(userId)
       return axios.put(API_URL + `joinCommunityEvent/${eventId}`, {
         id: userId,
         // username: '',

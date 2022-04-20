@@ -12,9 +12,6 @@
               <router-link to="/createEvent" class="nav-link text-white">Create Event</router-link>
             </a>
             <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
-              <router-link to="/myEvents" class="nav-link text-white">My Events</router-link>   
-            </a>
-            <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
               <router-link to="/events" class="nav-link text-white">All Events</router-link>
             </a>
             <h3 v-if="errorMsg">{{ errorMsg }}</h3>
@@ -83,7 +80,7 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-        this.errorMsg = 'Error retrieving events';
+        this.errorMsg = 'Error leaving events';
       })
     },
   },

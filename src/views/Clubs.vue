@@ -11,7 +11,9 @@
             <a v-if="hasPrivilege" class="btn btn-info btn-sm" role="button">
               <router-link to="/createClub" class="nav-link text-white">Create Club</router-link>
             </a>
-
+            <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
+              <router-link to="/joinedClubs" class="nav-link text-white">My Clubs</router-link>
+            </a>
             <h3 v-if="errorMsg">{{ errorMsg }}</h3>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered">
@@ -80,6 +82,16 @@ export default {
         console.log(error);
         this.errorMsg = 'Error retrieving data';
       })      
+    },
+    joinClub(clubId){
+      ClubService.joinCommunityLifeClub(clubId, this.currentUser.id).then(response => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.errorMsg = 'Error joining club';
+      })
+      //this.$router.go()
     },
     deleteClub(clubId){
       ClubService.deleteCommunityLifeClub(clubId).then(response => {

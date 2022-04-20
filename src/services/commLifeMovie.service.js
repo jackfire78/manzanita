@@ -26,6 +26,11 @@ class MovieService {
     return axios.get(API_URL + `getComLifeMovie/${movieID}` , { headers: authHeader() })
   }
 
+  //retrieve all movies current user is attending
+  getMyCommunityLifeMovies(userId) {
+    return axios.get(API_URL + `getMyComLifeMovies/${userId}` , { headers: authHeader() })
+  }
+
   //edit an movie
   editCommunityLifeMovie(movieID, CLifeMovie) {
     return axios.put(API_URL + `editComLifeMovie/${movieID}`, { headers: authHeader(),
@@ -34,6 +39,28 @@ class MovieService {
       movieDescription: CLifeMovie.movieDescription,
     });
   }
+
+  //attend a movie
+  attendCommunityLifeMovie(movieID, userId) {
+    //console.log(userId)
+    return axios.put(API_URL + `attendCommunityLifeMovie/${movieID}`, {
+      id: userId,
+      // username: '',
+      // email: '',
+      // password: '',
+      // phoneNumber: '',
+      // unitNumber: '',
+      // role: ''
+    } ,{ headers: authHeader()
+    })
+    .catch(error => {console.log(error)});     
+  }
+
+  //delete a community life movie that current user is attending
+  leaveCommunityLifeMovie(movieID) {
+    return axios.delete(API_URL + 'leaveCommunityLifeMovie/' + movieID , { headers: authHeader() });
+  }
+
   //delete a community life movie
   deleteCommunityLifeMovie(movieID) {
     return axios.delete(API_URL + `deleteComLifeMovie/${movieID}`, { headers: authHeader() });

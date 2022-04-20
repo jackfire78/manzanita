@@ -12,15 +12,13 @@
               <router-link to="/createMovie" class="nav-link text-white">Add Movie</router-link>
             </a>
             <a v-if="currentUser" class="btn btn-info btn-sm" role="button">
-              <router-link to="/myMovies" class="nav-link text-white">My Movies</router-link>
+              <router-link to="/movies" class="nav-link text-white">All Movies</router-link>
             </a>
             <div class="table-responsive">
               <table style="width:100%" class="table table-striped table-bordered">
                 <thead>
                   <tr>
                     <th>Movie Name</th>
-                    <th>Date</th>
-                    <th>Description</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -29,12 +27,8 @@
 
                   <tr v-for="movie in movies" :key="movie.id">
                     <td> {{ movie.movieName }} </td>
-                    <td> {{ movie.movieDate }} </td>
-                    <td> {{ movie.movieDescription }} </td>
                     <td>
-                      <button v-if="currentUser" class="btn btn-success" @click="attendMovie(movie.id)"> Attend </button>
-                      <button v-if="hasPrivilege" class="btn btn-primary" @click="editMovie(movie.id)"> Edit </button>
-                      <button v-if="hasPrivilege" class="btn btn-danger" @click="deleteMovie(movie.id)"> Delete </button>
+                      <button v-if="currentUser" class="btn btn-success" @click="leaveMovie(movie.id)"> Leave </button>
                     </td>
                   </tr>
 
@@ -64,7 +58,7 @@ export default {
   },
   methods: {
     getMovies(){
-      MovieService.getAllMovies().then(response => {
+      MovieService.getMyCommunityLifeMovies(this.currentUser.id).then(response => {
         this.movies = response.data;
         console.log(response);
         this.numberOfMovies= this.movies.count;
@@ -76,34 +70,18 @@ export default {
         this.errorMsg = 'Error retrieving data';
       })
     },
-    editMovie(movieId){
-        this.$router.push('/editMovie/'+movieId)
-      
-      .catch((error) => {
-        console.log(error);
-        this.errorMsg = 'Error retrieving data';
-      })      
-    },
-    attendMovie(movieId){
-      MovieService.attendCommunityLifeMovie(movieId, this.currentUser.id).then(response => {
+    leaveMovie(movieId){
+      MovieService.leaveCommunityLifeMovie(movieId).then(response => {
+        this.movies = response.data;
         console.log(response);
+        this.$router.push('/movies')
       })
       .catch((error) => {
         console.log(error);
-        this.errorMsg = 'Error attending movie';
+        this.errorMsg = 'Error leaving movie';
       })
-      //this.$router.go()
     },
-    deleteMovie(movieId){
-      MovieService.deleteCommunityLifeMovie(movieId).then(response => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-        this.errorMsg = 'Error deleting data';
-      })
-      this.$router.go()
-    },
+
   },
   mounted() {
     this.getMovies();

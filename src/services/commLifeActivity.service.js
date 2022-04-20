@@ -27,6 +27,11 @@ class ActivityService {
     return axios.get(API_URL + `getComLifeActivity/${activityID}` , { headers: authHeader() })
   }
 
+  //retrieve logged in user's community life activities they are attending
+  getMyCommunityLifeActivities(userId) {
+    return axios.get(API_URL + `myCommunityLifeActivities/${userId}` , { headers: authHeader() })
+  }
+
   //edit an activity
   editCommunityLifeActivity(activityID, CLifeActivity) {
     return axios.put(API_URL + `editComLifeActivity/${activityID}`, { headers: authHeader(),
@@ -36,6 +41,27 @@ class ActivityService {
       activityPrice: CLifeActivity.activityPrice
     });
   }
+
+  //join an event
+  attendCommunityLifeActivity(activityID, userId) {
+    //console.log(userId)
+    return axios.put(API_URL + `attendCommunityLifeActivity/${activityID}`, {
+      id: userId,
+      // username: '',
+      // email: '',
+      // password: '',
+      // phoneNumber: '',
+      // unitNumber: '',
+      // role: ''
+    } ,{ headers: authHeader()
+    })
+    .catch(error => {console.log(error)});     
+  }
+
+  //delete a community event
+  leaveCommunityLifeActivity(activityID) {
+    return axios.delete(API_URL + 'leaveCommunityLifeActivity/' + activityID , { headers: authHeader() });
+  }  
   //delete a community life activity
   deleteCommunityLifeActivity(activityID) {
     return axios.delete(API_URL + `deleteComLifeActivity/${activityID}` , { headers: authHeader() });
