@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 //initial url location
-const API_URL = 'https://springboot-application-backend.herokuapp.com/api/auth/';
+const API_URL = 'http://localhost:8080/api/auth/';
 
 //method to verify login and register services
 class AuthService {
