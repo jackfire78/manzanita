@@ -6,9 +6,14 @@
     "node": "14.18.1"
     },
   "scripts": {
+    "dev": "vue-cli-service start",
+    "start": "serve -s build",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint" 
+    "lint": "vue-cli-service lint",
+    "test": "vue-cli-service test --env=jsdom",
+    "eject": "vue-cli-service eject",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
