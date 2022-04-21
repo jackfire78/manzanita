@@ -1,6 +1,21 @@
 {
   "name": "manzanita",
+<<<<<<< HEAD
   "packageManager": "yarn@2.4.2",
+=======
+  "version": "0.1.0",
+  "packageManager": "yarn@3.2.0",
+  "private": true,
+  "engines": {
+    "node": "6.14.15"
+    },
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "yarn run build",
+    "serve": "vue-cli-service serve",
+    "lint": "vue-cli-service lint"
+  },
+>>>>>>> parent of 530f732 (node version)
   "dependencies": {
     "express": "^4.17.3"
   }
