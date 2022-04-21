@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/lifeActivity/';
+const API_URL = 'https://springboot-application-backend.herokuapp.com/api/lifeActivity/';
 //service used for accessing activity data
 class ActivityService {
 

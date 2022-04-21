@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = 'https://springboot-application-backend.herokuapp.com/api/test/';
 //service used for accessing data
 class UserService {
   //Accessible by anyone
@@ -11,11 +11,11 @@ class UserService {
 
   //retrieve information of current logged in user
   getMyProfile(id){
-    return axios.get(`http://localhost:8080/api/auth/getPersonalInfo/${id}` , { headers: authHeader() })
+    return axios.get(`https://springboot-application-backend.herokuapp.com/api/auth/getPersonalInfo/${id}` , { headers: authHeader() })
   }
   //edit method. Used to edit an already existing account
   editMyProfile(id, user) {
-    return axios.put(`http://localhost:8080/api/auth/editPersonalInfo/${id}`, { headers: authHeader(),
+    return axios.put(`https://springboot-application-backend.herokuapp.com/api/auth/editPersonalInfo/${id}`, { headers: authHeader(),
       username: user.username,
       email: user.email,
       phoneNumber: user.phoneNumber,        
