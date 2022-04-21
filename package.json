@@ -12,12 +12,16 @@
     },
 =======
   "version": "0.1.0",
-  "packageManager": "yarn@2.4.2",
+  "packageManager": "yarn@3.2.0",
   "private": true,
   "engines": {
     "node": "14.18.1"
+<<<<<<< HEAD
   },
 >>>>>>> parent of 07b8d63 (deleted package json)
+=======
+    },
+>>>>>>> parent of 05842c1 (yarn downgrade)
   "scripts": {
     "start": "node server.js",
     "postinstall": "yarn run build",
@@ -32,17 +36,9 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
     "axios": "^0.24.0",
-    "babel-eslint": "^10.1.0",
     "bootstrap": "^4.6.1",
     "core-js": "^3.6.5",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "express": "^4.17.3",
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "popper.js": "^1.16.1",
@@ -50,12 +46,21 @@
     "vue": "^3.0.0",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2",
-    "yup": "^0.32.11"
-  },
-  "devDependencies": {
+    "yup": "^0.32.11",
+    "@vue/cli-service": "~4.5.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0",
+    "express": "^4.17.3"
+
+  },
+  "devDependencies": {
     "@vue/cli-service": "~4.5.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
